@@ -12,17 +12,11 @@ import org.junit.jupiter.api.Test;
 class ConfigPathsTest {
 
   @Test
-  void nestsTheModDirectoryUnderTheWorldDirectory() {
-    final Path worldDir = Path.of("saves", "New World");
-
-    assertEquals(worldDir.resolve("volley"), new ConfigPaths(worldDir).getModDir());
-  }
-
-  @Test
-  void resolvesTheServerConfigInsideTheModDirectory() {
+  void resolvesTheServerConfigInsideTheModDirectoryOfTheWorld() {
     final ConfigPaths paths = new ConfigPaths(Path.of("saves", "New World"));
 
-    assertEquals(paths.getModDir().resolve("server-config.json"), paths.getServerConfigPath());
+    assertEquals(
+        Path.of("saves", "New World", "volley", "server-config.json"), paths.getServerConfigPath());
   }
 
   @Test

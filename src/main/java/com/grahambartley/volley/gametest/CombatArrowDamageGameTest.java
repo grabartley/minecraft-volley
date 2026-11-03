@@ -35,10 +35,7 @@ public final class CombatArrowDamageGameTest implements FabricGameTest {
 
   @GameTest(templateName = FiringRangeSupport.TEMPLATE, batchId = BATCH, tickLimit = 60)
   public void aBowFiredCombatArrowLeavesTheBowCritical(TestContext context) {
-    MockPlayerSupport.fireEastFromBow(
-        context,
-        MockPlayerSupport.playerAt(context, FiringRangeSupport.SHOOTER_STAND),
-        ModArrows.HOMING_ARROW.item());
+    FiringRangeSupport.fireEastFromBowFromTheStand(context, ModArrows.HOMING_ARROW.item());
 
     context.runAtTick(
         1,
@@ -55,10 +52,7 @@ public final class CombatArrowDamageGameTest implements FabricGameTest {
   @GameTest(templateName = FiringRangeSupport.TEMPLATE, batchId = BATCH, tickLimit = 60)
   public void aGuardArrowLeavesItsTargetWithAbsorptionToShowForIt(TestContext context) {
     final CowEntity target = FiringRangeSupport.liveTargetOnPedestalAt(context, TARGET_STAND);
-    MockPlayerSupport.fireEastStraight(
-        context,
-        MockPlayerSupport.playerAt(context, FiringRangeSupport.SHOOTER_STAND),
-        ModArrows.GUARD_ARROW.item());
+    FiringRangeSupport.fireEastStraightFromTheStand(context, ModArrows.GUARD_ARROW.item());
 
     context.runAtTick(
         FiringRangeSupport.LANDING_TICK,

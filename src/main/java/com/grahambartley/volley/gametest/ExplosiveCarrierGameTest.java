@@ -193,10 +193,7 @@ public final class ExplosiveCarrierGameTest implements FabricGameTest {
   }
 
   private static void fireAtTheCow(final TestContext context) {
-    MockPlayerSupport.fireEastFromBow(
-        context,
-        MockPlayerSupport.playerAt(context, FiringRangeSupport.SHOOTER_STAND),
-        ModArrows.FIRE_CHARGE_ARROW.item());
+    FiringRangeSupport.fireEastFromBowFromTheStand(context, ModArrows.FIRE_CHARGE_ARROW.item());
   }
 
   private static void moveTo(

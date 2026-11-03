@@ -16,10 +16,7 @@ public final class RustArrowEntityGameTest implements FabricGameTest {
   @GameTest(templateName = FiringRangeSupport.TEMPLATE, batchId = BATCH, tickLimit = 60)
   public void anArrowFiredFromABowAppliesRustToTheEntityItHits(TestContext context) {
     final CowEntity target = FiringRangeSupport.liveTargetOnPedestalAt(context, TARGET_STAND);
-    MockPlayerSupport.fireEastStraight(
-        context,
-        MockPlayerSupport.playerAt(context, FiringRangeSupport.SHOOTER_STAND),
-        ModArrows.RUST_ARROW.item());
+    FiringRangeSupport.fireEastStraightFromTheStand(context, ModArrows.RUST_ARROW.item());
 
     context.runAtTick(
         FiringRangeSupport.LANDING_TICK,
@@ -46,10 +43,7 @@ public final class RustArrowEntityGameTest implements FabricGameTest {
   public void anArrowThatHitsOnlyABlockAppliesNothing(TestContext context) {
     FiringRangeSupport.raiseBackstop(context);
     final CowEntity bystander = FiringRangeSupport.liveTargetOnPedestalAt(context, BYSTANDER_STAND);
-    MockPlayerSupport.fireEastFromBow(
-        context,
-        MockPlayerSupport.playerAt(context, FiringRangeSupport.SHOOTER_STAND),
-        ModArrows.RUST_ARROW.item());
+    FiringRangeSupport.fireEastFromBowFromTheStand(context, ModArrows.RUST_ARROW.item());
 
     context.runAtTick(
         FiringRangeSupport.LANDING_TICK,

@@ -40,10 +40,7 @@ public final class ShockArrowEntityGameTest implements FabricGameTest {
   public void anArrowLandsAnOrdinaryHitWithoutSettingAnythingAlight(TestContext context) {
     final CowEntity target = FiringRangeSupport.liveTargetOnPedestalAt(context, TARGET_STAND);
     final float before = target.getHealth();
-    MockPlayerSupport.fireEastStraight(
-        context,
-        MockPlayerSupport.playerAt(context, FiringRangeSupport.SHOOTER_STAND),
-        ModArrows.SHOCK_ARROW.item());
+    FiringRangeSupport.fireEastStraightFromTheStand(context, ModArrows.SHOCK_ARROW.item());
 
     context.runAtTick(
         FiringRangeSupport.LANDING_TICK + SETTLED,
@@ -65,10 +62,7 @@ public final class ShockArrowEntityGameTest implements FabricGameTest {
     FiringRangeSupport.liveTargetOnPedestalAt(context, TARGET_STAND);
     final CowEntity neighbour = FiringRangeSupport.liveTargetOnPedestalAt(context, NEIGHBOUR_STAND);
     final float neighbourBefore = neighbour.getHealth();
-    MockPlayerSupport.fireEastStraight(
-        context,
-        MockPlayerSupport.playerAt(context, FiringRangeSupport.SHOOTER_STAND),
-        ModArrows.SHOCK_ARROW.item());
+    FiringRangeSupport.fireEastStraightFromTheStand(context, ModArrows.SHOCK_ARROW.item());
 
     context.runAtTick(
         FiringRangeSupport.LANDING_TICK + SETTLED,
@@ -87,10 +81,7 @@ public final class ShockArrowEntityGameTest implements FabricGameTest {
     FiringRangeSupport.raiseBackstop(context);
     final CowEntity bystander = FiringRangeSupport.liveTargetOnPedestalAt(context, NEIGHBOUR_STAND);
     final float before = bystander.getHealth();
-    MockPlayerSupport.fireEastFromBow(
-        context,
-        MockPlayerSupport.playerAt(context, FiringRangeSupport.SHOOTER_STAND),
-        ModArrows.SHOCK_ARROW.item());
+    FiringRangeSupport.fireEastFromBowFromTheStand(context, ModArrows.SHOCK_ARROW.item());
 
     context.runAtTick(
         FiringRangeSupport.LANDING_TICK + SETTLED,
@@ -110,10 +101,7 @@ public final class ShockArrowEntityGameTest implements FabricGameTest {
     spectator.changeGameMode(GameMode.SPECTATOR);
     final CowEntity bystander = FiringRangeSupport.liveTargetOnPedestalAt(context, NEIGHBOUR_STAND);
     final float before = bystander.getHealth();
-    MockPlayerSupport.fireEastFromBow(
-        context,
-        MockPlayerSupport.playerAt(context, FiringRangeSupport.SHOOTER_STAND),
-        ModArrows.SHOCK_ARROW.item());
+    FiringRangeSupport.fireEastFromBowFromTheStand(context, ModArrows.SHOCK_ARROW.item());
 
     context.runAtTick(
         FiringRangeSupport.LANDING_TICK + SETTLED,
@@ -149,10 +137,7 @@ public final class ShockArrowEntityGameTest implements FabricGameTest {
   @GameTest(templateName = FiringRangeSupport.TEMPLATE, batchId = BATCH, tickLimit = 80)
   public void anArrowThatHitsOnlyABlockLeavesTheBlockAlone(TestContext context) {
     FiringRangeSupport.raiseBackstop(context);
-    MockPlayerSupport.fireEastFromBow(
-        context,
-        MockPlayerSupport.playerAt(context, FiringRangeSupport.SHOOTER_STAND),
-        ModArrows.SHOCK_ARROW.item());
+    FiringRangeSupport.fireEastFromBowFromTheStand(context, ModArrows.SHOCK_ARROW.item());
 
     context.runAtTick(
         FiringRangeSupport.LANDING_TICK + SETTLED,
@@ -181,10 +166,7 @@ public final class ShockArrowEntityGameTest implements FabricGameTest {
                   .getEntitiesByType(EntityType.LIGHTNING_BOLT, range, bolt -> true)
                   .isEmpty();
         });
-    MockPlayerSupport.fireEastStraight(
-        context,
-        MockPlayerSupport.playerAt(context, FiringRangeSupport.SHOOTER_STAND),
-        ModArrows.SHOCK_ARROW.item());
+    FiringRangeSupport.fireEastStraightFromTheStand(context, ModArrows.SHOCK_ARROW.item());
 
     context.runAtTick(
         FiringRangeSupport.LANDING_TICK + SETTLED,

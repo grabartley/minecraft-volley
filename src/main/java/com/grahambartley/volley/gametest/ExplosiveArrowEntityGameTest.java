@@ -31,10 +31,7 @@ public final class ExplosiveArrowEntityGameTest implements FabricGameTest {
   @GameTest(templateName = FiringRangeSupport.TEMPLATE, batchId = BATCH, tickLimit = 120)
   public void theTopTierLeavesFireWhereItDetonates(TestContext context) {
     FiringRangeSupport.raiseBackstop(context);
-    MockPlayerSupport.fireEastFromBow(
-        context,
-        MockPlayerSupport.playerAt(context, FiringRangeSupport.SHOOTER_STAND),
-        ModArrows.FIRE_CHARGE_ARROW.item());
+    FiringRangeSupport.fireEastFromBowFromTheStand(context, ModArrows.FIRE_CHARGE_ARROW.item());
 
     context.runAtTick(
         ExplosiveArrowConfig.DEFAULT_FIRE_CHARGE.delayTicks()
@@ -75,10 +72,7 @@ public final class ExplosiveArrowEntityGameTest implements FabricGameTest {
   private static void assertFuseLights(
       final TestContext context, final RegisteredArrow<?> arrow, final ExplosiveTier tier) {
     FiringRangeSupport.raiseBackstop(context);
-    MockPlayerSupport.fireEastFromBow(
-        context,
-        MockPlayerSupport.playerAt(context, FiringRangeSupport.SHOOTER_STAND),
-        arrow.item());
+    FiringRangeSupport.fireEastFromBowFromTheStand(context, arrow.item());
 
     context.runAtTick(
         FiringRangeSupport.LANDING_TICK,

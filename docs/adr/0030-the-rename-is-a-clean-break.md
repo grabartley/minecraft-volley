@@ -1,6 +1,7 @@
 # ADR 0030: The rename is a clean break
 
 - **Status:** Accepted
+- **Revised by:** [ADR 0045](0045-the-rename-to-volley-is-a-clean-break.md): the mod is now Volley, and the `/nea` alias is gone.
 - **Date:** 2026-09-11
 
 ## Context

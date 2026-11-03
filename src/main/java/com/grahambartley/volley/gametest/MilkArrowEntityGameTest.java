@@ -21,10 +21,7 @@ public final class MilkArrowEntityGameTest implements FabricGameTest {
   public void anArrowStripsAHarmfulEffectFromWhatItHits(TestContext context) {
     final CowEntity target = FiringRangeSupport.liveTargetOnPedestalAt(context, TARGET_STAND);
     target.addStatusEffect(new StatusEffectInstance(StatusEffects.POISON, A_LONG_TIME));
-    MockPlayerSupport.fireEastStraight(
-        context,
-        MockPlayerSupport.playerAt(context, FiringRangeSupport.SHOOTER_STAND),
-        ModArrows.MILK_ARROW.item());
+    FiringRangeSupport.fireEastStraightFromTheStand(context, ModArrows.MILK_ARROW.item());
 
     context.runAtTick(
         FiringRangeSupport.LANDING_TICK,
@@ -40,10 +37,7 @@ public final class MilkArrowEntityGameTest implements FabricGameTest {
   public void anArrowStripsAHelpfulEffectJustTheSame(TestContext context) {
     final CowEntity target = FiringRangeSupport.liveTargetOnPedestalAt(context, TARGET_STAND);
     target.addStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, A_LONG_TIME));
-    MockPlayerSupport.fireEastStraight(
-        context,
-        MockPlayerSupport.playerAt(context, FiringRangeSupport.SHOOTER_STAND),
-        ModArrows.MILK_ARROW.item());
+    FiringRangeSupport.fireEastStraightFromTheStand(context, ModArrows.MILK_ARROW.item());
 
     context.runAtTick(
         FiringRangeSupport.LANDING_TICK,
@@ -60,10 +54,7 @@ public final class MilkArrowEntityGameTest implements FabricGameTest {
     FiringRangeSupport.raiseBackstop(context);
     final CowEntity bystander = FiringRangeSupport.liveTargetOnPedestalAt(context, BYSTANDER_STAND);
     bystander.addStatusEffect(new StatusEffectInstance(StatusEffects.POISON, A_LONG_TIME));
-    MockPlayerSupport.fireEastFromBow(
-        context,
-        MockPlayerSupport.playerAt(context, FiringRangeSupport.SHOOTER_STAND),
-        ModArrows.MILK_ARROW.item());
+    FiringRangeSupport.fireEastFromBowFromTheStand(context, ModArrows.MILK_ARROW.item());
 
     context.runAtTick(
         FiringRangeSupport.LANDING_TICK,

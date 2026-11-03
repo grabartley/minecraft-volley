@@ -17,10 +17,7 @@ public final class SmokeArrowEntityGameTest implements FabricGameTest {
   public void anArrowFiredFromABowOpensACloudThatBlindsWhatIsInsideIt(TestContext context) {
     FiringRangeSupport.raiseBackstop(context);
     final CowEntity inside = ControlTestSupport.stillCowAt(context, INSIDE_STAND);
-    MockPlayerSupport.fireEastFromBow(
-        context,
-        MockPlayerSupport.playerAt(context, FiringRangeSupport.SHOOTER_STAND),
-        ModArrows.SMOKE_ARROW.item());
+    FiringRangeSupport.fireEastFromBowFromTheStand(context, ModArrows.SMOKE_ARROW.item());
 
     context.runAtTick(
         SETTLING_TICK,
@@ -48,10 +45,7 @@ public final class SmokeArrowEntityGameTest implements FabricGameTest {
   public void theCloudLeavesTheWorldItselfUntouched(TestContext context) {
     FiringRangeSupport.raiseBackstop(context);
     final CowEntity inside = ControlTestSupport.stillCowAt(context, INSIDE_STAND);
-    MockPlayerSupport.fireEastFromBow(
-        context,
-        MockPlayerSupport.playerAt(context, FiringRangeSupport.SHOOTER_STAND),
-        ModArrows.SMOKE_ARROW.item());
+    FiringRangeSupport.fireEastFromBowFromTheStand(context, ModArrows.SMOKE_ARROW.item());
 
     context.runAtTick(
         SETTLING_TICK,
@@ -67,10 +61,7 @@ public final class SmokeArrowEntityGameTest implements FabricGameTest {
   @GameTest(templateName = FiringRangeSupport.TEMPLATE, batchId = BATCH, tickLimit = 80)
   public void anArrowIsSpentByItsOwnCloudRatherThanEmbedding(TestContext context) {
     FiringRangeSupport.raiseBackstop(context);
-    MockPlayerSupport.fireEastFromBow(
-        context,
-        MockPlayerSupport.playerAt(context, FiringRangeSupport.SHOOTER_STAND),
-        ModArrows.SMOKE_ARROW.item());
+    FiringRangeSupport.fireEastFromBowFromTheStand(context, ModArrows.SMOKE_ARROW.item());
 
     context.runAtTick(
         SETTLING_TICK,

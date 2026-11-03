@@ -24,10 +24,7 @@ public final class RedstoneArrowEntityGameTest implements FabricGameTest {
   @GameTest(templateName = FiringRangeSupport.TEMPLATE, batchId = BATCH, tickLimit = 60)
   public void anArrowFiredFromABowChargesTheFaceItStrikes(TestContext context) {
     FiringRangeSupport.raiseBackstop(context);
-    MockPlayerSupport.fireEastFromBow(
-        context,
-        MockPlayerSupport.playerAt(context, FiringRangeSupport.SHOOTER_STAND),
-        ModArrows.REDSTONE_ARROW.item());
+    FiringRangeSupport.fireEastFromBowFromTheStand(context, ModArrows.REDSTONE_ARROW.item());
 
     context.runAtTick(
         FiringRangeSupport.LANDING_TICK,
@@ -41,10 +38,7 @@ public final class RedstoneArrowEntityGameTest implements FabricGameTest {
   public void aChargedFaceLightsARedstoneLampBesideIt(TestContext context) {
     FiringRangeSupport.raiseBackstop(context);
     context.setBlockState(LAMP, Blocks.REDSTONE_LAMP);
-    MockPlayerSupport.fireEastFromBow(
-        context,
-        MockPlayerSupport.playerAt(context, FiringRangeSupport.SHOOTER_STAND),
-        ModArrows.REDSTONE_ARROW.item());
+    FiringRangeSupport.fireEastFromBowFromTheStand(context, ModArrows.REDSTONE_ARROW.item());
 
     context.runAtTick(
         FiringRangeSupport.LANDING_TICK + 5,
