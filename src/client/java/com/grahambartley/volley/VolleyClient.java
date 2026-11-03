@@ -8,6 +8,7 @@ import com.grahambartley.volley.network.ModNetworkingClient;
 import com.grahambartley.volley.render.ArrowRendererRegistrar;
 import com.grahambartley.volley.render.BlockRenderLayerRegistrar;
 import com.grahambartley.volley.render.CourierArrowPredicates;
+import com.grahambartley.volley.render.FletchingColors;
 import com.grahambartley.volley.render.TintedArrowColors;
 import com.grahambartley.volley.reveal.BlockOutlineRenderer;
 import com.grahambartley.volley.reveal.RevealSync;
@@ -24,6 +25,7 @@ public class VolleyClient implements ClientModInitializer {
     ClientStateService.load();
     ArrowRendererRegistrar.registerAll();
     TintedArrowColors.registerAll();
+    FletchingColors.registerAll();
     CourierArrowPredicates.register();
     EntityRendererRegistry.register(ModEntities.SHOCK_BOLT, LightningEntityRenderer::new);
     BlockRenderLayerRegistrar.registerAll();

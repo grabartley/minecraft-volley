@@ -9,18 +9,26 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 class TintedArrowColorsTest {
+  private static final Identifier PAINT = Identifier.of("volley", "paint_arrow");
   private static final TintChoice RED =
       new TintChoice("red", Identifier.ofVanilla("red_dye"), 0xB02E26, "color.minecraft.red");
 
   @Test
   void tintsTheTintedLayerWithTheChoiceFullyOpaque() {
-    assertEquals(0xFFB02E26, TintedArrowColors.layerColor(TintedArrowColors.TINTED_LAYER, RED));
+    assertEquals(
+        0xFFB02E26, TintedArrowColors.layerColor(TintedArrowColors.TINTED_LAYER, RED, PAINT));
   }
 
   @ParameterizedTest
-  @ValueSource(ints = {-1, 1, 2})
+  @ValueSource(ints = {-1, 2})
   void leavesEveryOtherLayerUntinted(final int tintIndex) {
-    assertEquals(0xFFFFFFFF, TintedArrowColors.layerColor(tintIndex, RED));
+    assertEquals(0xFFFFFFFF, TintedArrowColors.layerColor(tintIndex, RED, PAINT));
+  }
+
+  @Test
+  void coloursTheFletchingWithTheArrowAccent() {
+    assertEquals(
+        0xFFE04FD0, TintedArrowColors.layerColor(FletchingColors.FLETCHING_LAYER, RED, PAINT));
   }
 
   @Test

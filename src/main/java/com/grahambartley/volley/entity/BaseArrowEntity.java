@@ -1,6 +1,10 @@
 package com.grahambartley.volley.entity;
 
+import com.grahambartley.volley.ModSounds;
+import com.grahambartley.volley.arrow.ArrowAura;
 import com.grahambartley.volley.arrow.ArrowImpact;
+import com.grahambartley.volley.arrow.ArrowSparkle;
+import com.grahambartley.volley.audio.ModSoundPlayer;
 import java.util.Optional;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -10,8 +14,10 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.Registries;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.world.World;
@@ -21,6 +27,10 @@ public abstract class BaseArrowEntity extends PersistentProjectileEntity {
   private static final double GLANCE_SPEED_FACTOR = 0.2;
   private static final double RESTING_SPEED_SQUARED = 1.0E-7;
   private static final float DROP_HEIGHT = 0.1f;
+  private static final double BURST_SPREAD = 0.25;
+  private static final double BURST_SPEED = 0.02;
+  private static final float CHIME_VOLUME = 0.6f;
+  private static final float CHIME_PITCH = 1.6f;
 
   protected BaseArrowEntity(
       final EntityType<? extends BaseArrowEntity> entityType, final World world) {
@@ -44,6 +54,7 @@ public abstract class BaseArrowEntity extends PersistentProjectileEntity {
       super.onBlockHit(blockHitResult);
       return;
     }
+    burst(serverWorld);
     resolve(
         onArrowHitBlock(serverWorld, blockHitResult),
         () -> super.onBlockHit(blockHitResult),
@@ -56,6 +67,7 @@ public abstract class BaseArrowEntity extends PersistentProjectileEntity {
       super.onEntityHit(entityHitResult);
       return;
     }
+    burst(serverWorld);
     final ArrowImpact impact = onArrowHitEntity(serverWorld, entityHitResult);
     resolve(
         hurtsWhatItHits() ? impact : impact.sparingWhatItHits(),
@@ -69,7 +81,29 @@ public abstract class BaseArrowEntity extends PersistentProjectileEntity {
 
     if (getWorld() instanceof ServerWorld serverWorld && !isRemoved()) {
       onArrowTick(serverWorld);
+    } else if (getWorld().isClient() && ArrowSparkle.trails(inGround, isRemoved(), age)) {
+      trail();
     }
+  }
+
+  private void trail() {
+    final boolean glows = ArrowAura.glows(arrowId());
+    getWorld()
+        .addParticle(
+            ArrowSparkle.dust(ArrowAura.color(arrowId()), ArrowSparkle.trailScale(glows)),
+            getX(),
+            getY(),
+            getZ(),
+            0,
+            0,
+            0);
+    if (ArrowSparkle.sparkles(glows, age)) {
+      getWorld().addParticle(ParticleTypes.END_ROD, getX(), getY(), getZ(), 0, 0, 0);
+    }
+  }
+
+  public boolean inFlight() {
+    return !inGround;
   }
 
   public Optional<LivingEntity> shooter() {
@@ -119,7 +153,38 @@ public abstract class BaseArrowEntity extends PersistentProjectileEntity {
   }
 
   protected Item arrowItem() {
-    return Registries.ITEM.get(Registries.ENTITY_TYPE.getId(getType()));
+    return Registries.ITEM.get(arrowId());
+  }
+
+  private Identifier arrowId() {
+    return Registries.ENTITY_TYPE.getId(getType());
+  }
+
+  private void burst(final ServerWorld world) {
+    final boolean glows = ArrowAura.glows(arrowId());
+    world.spawnParticles(
+        ArrowSparkle.dust(ArrowAura.color(arrowId()), ArrowSparkle.BURST_SCALE),
+        getX(),
+        getY(),
+        getZ(),
+        ArrowSparkle.burstCount(glows),
+        BURST_SPREAD,
+        BURST_SPREAD,
+        BURST_SPREAD,
+        BURST_SPEED);
+    if (glows) {
+      world.spawnParticles(
+          ParticleTypes.END_ROD,
+          getX(),
+          getY(),
+          getZ(),
+          ArrowSparkle.GLOW_SPARK_COUNT,
+          BURST_SPREAD,
+          BURST_SPREAD,
+          BURST_SPREAD,
+          BURST_SPEED);
+      ModSoundPlayer.playFrom(this, ModSounds.ARROW_GLOW_CHIME, CHIME_VOLUME, CHIME_PITCH);
+    }
   }
 
   private void resolve(

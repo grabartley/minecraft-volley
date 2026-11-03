@@ -12,6 +12,12 @@ import org.junit.jupiter.params.provider.CsvSource;
 class ArrowTexturesTest {
 
   @ParameterizedTest
+  @CsvSource({"volley", "minecraft"})
+  void sharesOnePartsTexturePerNamespace(final String namespace) {
+    assertEquals(Identifier.of(namespace, "item/arrow_parts"), ArrowTextures.itemParts(namespace));
+  }
+
+  @ParameterizedTest
   @CsvSource({
     "tnt_arrow, textures/entity/arrow/tnt_arrow.png",
     "rope_arrow, textures/entity/arrow/rope_arrow.png",
@@ -48,5 +54,17 @@ class ArrowTexturesTest {
   void rejectsANullArrowId() {
     assertThrows(NullPointerException.class, () -> ArrowTextures.flight(null));
     assertThrows(NullPointerException.class, () -> ArrowTextures.flightTint(null));
+  }
+
+  @ParameterizedTest
+  @CsvSource({
+    "shock_arrow, textures/entity/arrow/shock_arrow_glow.png",
+    "torch_arrow, textures/entity/arrow/torch_arrow_glow.png",
+  })
+  void derivesTheGlowTexturePathBesideTheArrowTexture(
+      final String path, final String expectedTexturePath) {
+    assertEquals(
+        expectedTexturePath,
+        ArrowTextures.flightGlow(Identifier.of(Volley.MOD_ID, path)).getPath());
   }
 }
