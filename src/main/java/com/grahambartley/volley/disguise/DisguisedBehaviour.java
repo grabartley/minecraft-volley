@@ -7,7 +7,6 @@ import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.util.math.Vec3d;
 
 public final class DisguisedBehaviour {
-  private static final int WANDER_CHANCE = 80;
   private static final int WANDER_REACH = 6;
   private static final int WANDER_HEIGHT = 3;
   private static final double WANDER_SPEED = 0.8;
@@ -25,17 +24,20 @@ public final class DisguisedBehaviour {
   }
 
   public static void tick(final MobEntity mob) {
-    if (mob.getNavigation().isIdle()
-        && mob instanceof PathAwareEntity walker
-        && walker.getRandom().nextInt(WANDER_CHANCE) == 0) {
-      final Vec3d spot = NoPenaltyTargeting.find(walker, WANDER_REACH, WANDER_HEIGHT);
-      if (spot != null) {
-        walker.getNavigation().startMovingTo(spot.x, spot.y, spot.z, WANDER_SPEED);
-      }
+    if (mob instanceof PathAwareEntity walker
+        && WanderRoll.fires(
+            walker.getNavigation().isIdle(), walker.getRandom().nextInt(WanderRoll.CHANCE))) {
+      wander(walker);
     }
     mob.getNavigation().tick();
     mob.getMoveControl().tick();
     mob.getLookControl().tick();
     mob.getJumpControl().tick();
+  }
+
+  public static boolean wander(final PathAwareEntity walker) {
+    final Vec3d spot = NoPenaltyTargeting.find(walker, WANDER_REACH, WANDER_HEIGHT);
+    return spot != null
+        && walker.getNavigation().startMovingTo(spot.x, spot.y, spot.z, WANDER_SPEED);
   }
 }

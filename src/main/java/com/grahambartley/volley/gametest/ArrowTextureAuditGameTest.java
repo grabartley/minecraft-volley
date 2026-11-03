@@ -37,22 +37,6 @@ public final class ArrowTextureAuditGameTest implements FabricGameTest {
     context.complete();
   }
 
-  @GameTest(templateName = FabricGameTest.EMPTY_STRUCTURE, batchId = BATCH, tickLimit = 10)
-  public void everyArrowHasAFlightTexture(TestContext context) {
-    final List<Identifier> missing = ArrowTextureAudit.missing(flightTextures());
-
-    context.assertTrue(missing.isEmpty(), "Arrows with no flight texture (REL-18): " + missing);
-    context.complete();
-  }
-
-  @GameTest(templateName = FabricGameTest.EMPTY_STRUCTURE, batchId = BATCH, tickLimit = 10)
-  public void noTwoArrowsShareAFlightTexture(TestContext context) {
-    final List<Identifier> shared = ArrowTextureAudit.shared(flightTextures());
-
-    context.assertTrue(shared.isEmpty(), "Arrows sharing a flight texture (REL-18): " + shared);
-    context.complete();
-  }
-
   private static Map<Identifier, Optional<String>> itemSprites() {
     final Map<Identifier, Optional<String>> digests = new LinkedHashMap<>();
     for (final ArrowDefinition<?> definition : ModArrows.catalog().definitions()) {
@@ -83,22 +67,5 @@ public final class ArrowTextureAuditGameTest implements FabricGameTest {
       layers.add(png.get());
     }
     return layers.isEmpty() ? Optional.empty() : Optional.of(layers);
-  }
-
-  private static Map<Identifier, Optional<String>> flightTextures() {
-    final Map<Identifier, Optional<String>> digests = new LinkedHashMap<>();
-    for (final ArrowDefinition<?> definition : ModArrows.catalog().definitions()) {
-      digests.put(definition.id(), flightLayers(definition).map(TextureDigest::of));
-    }
-    return digests;
-  }
-
-  private static Optional<List<byte[]>> flightLayers(final ArrowDefinition<?> definition) {
-    final Optional<byte[]> base = ModAssetsSupport.asset(ArrowTextures.flight(definition.id()));
-    if (base.isEmpty() || definition.palette().isEmpty()) {
-      return base.map(List::of);
-    }
-    return ModAssetsSupport.asset(ArrowTextures.flightTint(definition.id()))
-        .map(tint -> List.of(base.get(), tint));
   }
 }

@@ -4,10 +4,6 @@ import java.util.Objects;
 import net.minecraft.util.Identifier;
 
 public final class ArrowTextures {
-  private static final String FLIGHT_DIRECTORY = "textures/entity/arrow/";
-  private static final String TINT_SUFFIX = "_tint";
-  private static final String GLOW_SUFFIX = "_glow";
-  private static final String PNG = ".png";
   private static final String ITEM_PARTS_PATH = "item/arrow_parts";
 
   private ArrowTextures() {}
@@ -15,22 +11,5 @@ public final class ArrowTextures {
   public static Identifier itemParts(final String namespace) {
     Objects.requireNonNull(namespace, "namespace");
     return Identifier.of(namespace, ITEM_PARTS_PATH);
-  }
-
-  public static Identifier flight(final Identifier arrowId) {
-    Objects.requireNonNull(arrowId, "arrowId");
-    return Identifier.of(arrowId.getNamespace(), FLIGHT_DIRECTORY + arrowId.getPath() + PNG);
-  }
-
-  public static Identifier flightTint(final Identifier arrowId) {
-    Objects.requireNonNull(arrowId, "arrowId");
-    return Identifier.of(
-        arrowId.getNamespace(), FLIGHT_DIRECTORY + arrowId.getPath() + TINT_SUFFIX + PNG);
-  }
-
-  public static Identifier flightGlow(final Identifier arrowId) {
-    Objects.requireNonNull(arrowId, "arrowId");
-    return Identifier.of(
-        arrowId.getNamespace(), FLIGHT_DIRECTORY + arrowId.getPath() + GLOW_SUFFIX + PNG);
   }
 }
