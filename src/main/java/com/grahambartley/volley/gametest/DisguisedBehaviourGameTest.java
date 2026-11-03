@@ -11,6 +11,7 @@ import net.minecraft.entity.mob.ZombieEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.test.GameTest;
+import net.minecraft.test.GameTestException;
 import net.minecraft.test.TestContext;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
@@ -71,11 +72,11 @@ public final class DisguisedBehaviourGameTest implements FabricGameTest {
         });
     context.runAtTick(
         WANDER_WATCH - 1,
-        () ->
-            context.assertTrue(
-                false,
-                "The disguised zombie should wander, but it only got "
-                    + zombie.getPos().distanceTo(start[0])
-                    + " blocks away"));
+        () -> {
+          throw new GameTestException(
+              "The disguised zombie should wander, but it only got "
+                  + zombie.getPos().distanceTo(start[0])
+                  + " blocks away");
+        });
   }
 }

@@ -4,12 +4,12 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.RotationAxis;
 
 public final class ArrowModelPose {
-  public static final float VANILLA_PIXEL = 0.05625f;
-  public static final float VANILLA_LENGTH = 16 * VANILLA_PIXEL;
-  public static final float VANILLA_TIP = 4 * VANILLA_PIXEL;
-  public static final float MODEL_DIAGONAL = (float) Math.sqrt(2);
-  public static final float SCALE = VANILLA_LENGTH / MODEL_DIAGONAL;
-  public static final float TIP_SHIFT = VANILLA_TIP - VANILLA_LENGTH / 2;
+  private static final float VANILLA_PIXEL = 0.05625f;
+  private static final float VANILLA_LENGTH = 16 * VANILLA_PIXEL;
+  private static final float VANILLA_TIP = 4 * VANILLA_PIXEL;
+  private static final float MODEL_DIAGONAL = (float) Math.sqrt(2);
+  private static final float SCALE = VANILLA_LENGTH / MODEL_DIAGONAL;
+  private static final float TIP_SHIFT = VANILLA_TIP - VANILLA_LENGTH / 2;
   private static final float HEADING_OFFSET = 90f;
   private static final float MODEL_TILT = -45f;
   private static final float SHAKE_SPEED = 3f;

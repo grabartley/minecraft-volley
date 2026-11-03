@@ -1,11 +1,9 @@
 package com.grahambartley.volley.render;
 
 import com.grahambartley.volley.arrow.FlightSpin;
-import com.grahambartley.volley.arrow.GlowPulse;
 import com.grahambartley.volley.entity.BaseArrowEntity;
 import java.util.Objects;
 import java.util.function.Function;
-import net.minecraft.client.render.LightmapTextureManager;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRenderer;
@@ -55,7 +53,7 @@ public class BaseArrowEntityRenderer<E extends BaseArrowEntity> extends EntityRe
     itemRenderer.renderItem(
         stackOf.apply(entity),
         ModelTransformationMode.NONE,
-        glows ? glowLight(age, light) : light,
+        glows ? ArrowGlowLight.pulse(age, light) : light,
         OverlayTexture.DEFAULT_UV,
         matrices,
         vertexConsumers,
@@ -63,12 +61,6 @@ public class BaseArrowEntityRenderer<E extends BaseArrowEntity> extends EntityRe
         entity.getId());
     matrices.pop();
     super.render(entity, yaw, tickDelta, matrices, vertexConsumers, light);
-  }
-
-  private static int glowLight(final float age, final int light) {
-    return LightmapTextureManager.pack(
-        GlowPulse.blockLight(age, LightmapTextureManager.getBlockLightCoordinates(light)),
-        LightmapTextureManager.getSkyLightCoordinates(light));
   }
 
   @Override

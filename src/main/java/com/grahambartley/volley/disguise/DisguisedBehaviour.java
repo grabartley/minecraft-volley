@@ -25,8 +25,7 @@ public final class DisguisedBehaviour {
 
   public static void tick(final MobEntity mob) {
     if (mob instanceof PathAwareEntity walker
-        && WanderRoll.fires(
-            walker.getNavigation().isIdle(), walker.getRandom().nextInt(WanderRoll.CHANCE))) {
+        && WanderRoll.fires(walker.getNavigation().isIdle(), walker.getRandom())) {
       wander(walker);
     }
     mob.getNavigation().tick();
@@ -35,9 +34,10 @@ public final class DisguisedBehaviour {
     mob.getJumpControl().tick();
   }
 
-  public static boolean wander(final PathAwareEntity walker) {
+  public static void wander(final PathAwareEntity walker) {
     final Vec3d spot = NoPenaltyTargeting.find(walker, WANDER_REACH, WANDER_HEIGHT);
-    return spot != null
-        && walker.getNavigation().startMovingTo(spot.x, spot.y, spot.z, WANDER_SPEED);
+    if (spot != null) {
+      walker.getNavigation().startMovingTo(spot.x, spot.y, spot.z, WANDER_SPEED);
+    }
   }
 }

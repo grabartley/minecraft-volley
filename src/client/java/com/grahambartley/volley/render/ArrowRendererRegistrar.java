@@ -7,6 +7,9 @@ import com.grahambartley.volley.arrow.RegisteredArrow;
 import com.grahambartley.volley.entity.BaseArrowEntity;
 import com.grahambartley.volley.entity.TintedArrowEntity;
 import com.grahambartley.volley.item.TintedArrowItem;
+import com.grahambartley.volley.tint.TintChoice;
+import java.util.HashMap;
+import java.util.Map;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.ItemStack;
@@ -48,11 +51,13 @@ public final class ArrowRendererRegistrar {
       final RegisteredArrow<?> arrow, final TintedArrowItem item) {
     EntityRendererRegistry.register(
         (EntityType<E>) arrow.entityType(),
-        context ->
-            new BaseArrowEntityRenderer<E>(
-                context,
-                entity -> item.stackOf(entity.tint()),
-                ArrowAura.glows(arrow.id()),
-                FlightSpin.spins(arrow.id())));
+        context -> {
+          final Map<TintChoice, ItemStack> stacks = new HashMap<>();
+          return new BaseArrowEntityRenderer<E>(
+              context,
+              entity -> stacks.computeIfAbsent(entity.tint(), item::stackOf),
+              ArrowAura.glows(arrow.id()),
+              FlightSpin.spins(arrow.id()));
+        });
   }
 }
