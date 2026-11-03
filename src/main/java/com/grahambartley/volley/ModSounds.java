@@ -16,6 +16,7 @@ public final class ModSounds {
   public static final SoundEvent COUNTDOWN_BEEP = REGISTRAR.declare("countdown_beep");
   public static final Identifier COUNTDOWN_BEEP_ID = COUNTDOWN_BEEP.getId();
 
+  public static final SoundEvent ARROW_GLOW_CHIME = REGISTRAR.declare("arrow_glow_chime");
   public static final SoundEvent SMOKE_ARROW_IMPACT = REGISTRAR.declare("smoke_arrow_impact");
   public static final SoundEvent REPEL_ARROW_IMPACT = REGISTRAR.declare("repel_arrow_impact");
   public static final SoundEvent TAUNT_ARROW_IMPACT = REGISTRAR.declare("taunt_arrow_impact");

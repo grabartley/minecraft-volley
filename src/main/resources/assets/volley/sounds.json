@@ -907,5 +907,14 @@
         "type": "event"
       }
     ]
+  },
+  "arrow_glow_chime": {
+    "subtitle": "subtitles.block.amethyst_block.chime",
+    "sounds": [
+      {
+        "name": "minecraft:block/amethyst/shimmer",
+        "attenuation_distance": 48
+      }
+    ]
   }
 }

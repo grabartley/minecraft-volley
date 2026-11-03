@@ -6,6 +6,7 @@ import net.minecraft.util.Identifier;
 public final class ArrowTextures {
   private static final String FLIGHT_DIRECTORY = "textures/entity/arrow/";
   private static final String TINT_SUFFIX = "_tint";
+  private static final String GLOW_SUFFIX = "_glow";
   private static final String PNG = ".png";
 
   private ArrowTextures() {}
@@ -19,5 +20,11 @@ public final class ArrowTextures {
     Objects.requireNonNull(arrowId, "arrowId");
     return Identifier.of(
         arrowId.getNamespace(), FLIGHT_DIRECTORY + arrowId.getPath() + TINT_SUFFIX + PNG);
+  }
+
+  public static Identifier flightGlow(final Identifier arrowId) {
+    Objects.requireNonNull(arrowId, "arrowId");
+    return Identifier.of(
+        arrowId.getNamespace(), FLIGHT_DIRECTORY + arrowId.getPath() + GLOW_SUFFIX + PNG);
   }
 }

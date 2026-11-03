@@ -1,11 +1,13 @@
 package com.grahambartley.volley.render;
 
 import com.grahambartley.volley.ModArrows;
+import com.grahambartley.volley.arrow.ArrowAura;
 import com.grahambartley.volley.arrow.ArrowTextures;
 import com.grahambartley.volley.arrow.RegisteredArrow;
 import com.grahambartley.volley.entity.BaseArrowEntity;
 import com.grahambartley.volley.entity.TintedArrowEntity;
 import com.grahambartley.volley.item.TintedArrowItem;
+import java.util.Optional;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.minecraft.entity.EntityType;
 import net.minecraft.util.Identifier;
@@ -31,7 +33,14 @@ public final class ArrowRendererRegistrar {
       return;
     }
     EntityRendererRegistry.register(
-        arrow.entityType(), context -> new BaseArrowEntityRenderer<>(context, texture));
+        arrow.entityType(),
+        context -> new BaseArrowEntityRenderer<>(context, texture, glowTexture(arrow.id())));
+  }
+
+  private static Optional<Identifier> glowTexture(final Identifier arrowId) {
+    return ArrowAura.glows(arrowId)
+        ? Optional.of(ArrowTextures.flightGlow(arrowId))
+        : Optional.empty();
   }
 
   @SuppressWarnings("unchecked")

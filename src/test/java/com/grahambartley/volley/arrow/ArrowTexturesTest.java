@@ -49,4 +49,16 @@ class ArrowTexturesTest {
     assertThrows(NullPointerException.class, () -> ArrowTextures.flight(null));
     assertThrows(NullPointerException.class, () -> ArrowTextures.flightTint(null));
   }
+
+  @ParameterizedTest
+  @CsvSource({
+    "shock_arrow, textures/entity/arrow/shock_arrow_glow.png",
+    "torch_arrow, textures/entity/arrow/torch_arrow_glow.png",
+  })
+  void derivesTheGlowTexturePathBesideTheArrowTexture(
+      final String path, final String expectedTexturePath) {
+    assertEquals(
+        expectedTexturePath,
+        ArrowTextures.flightGlow(Identifier.of(Volley.MOD_ID, path)).getPath());
+  }
 }
