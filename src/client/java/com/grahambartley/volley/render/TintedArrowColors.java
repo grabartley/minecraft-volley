@@ -3,7 +3,8 @@ package com.grahambartley.volley.render;
 import com.grahambartley.volley.item.TintedArrowItems;
 import com.grahambartley.volley.tint.TintChoice;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
-import net.minecraft.util.Colors;
+import net.minecraft.registry.Registries;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.ColorHelper;
 
 public final class TintedArrowColors {
@@ -16,11 +17,16 @@ public final class TintedArrowColors {
         .forEach(
             item ->
                 ColorProviderRegistry.ITEM.register(
-                    (stack, tintIndex) -> layerColor(tintIndex, item.choiceOf(stack)), item));
+                    (stack, tintIndex) ->
+                        layerColor(tintIndex, item.choiceOf(stack), Registries.ITEM.getId(item)),
+                    item));
   }
 
-  public static int layerColor(final int tintIndex, final TintChoice choice) {
-    return tintIndex == TINTED_LAYER ? opaque(choice) : Colors.WHITE;
+  public static int layerColor(
+      final int tintIndex, final TintChoice choice, final Identifier arrowId) {
+    return tintIndex == TINTED_LAYER
+        ? opaque(choice)
+        : FletchingColors.layerColor(tintIndex, arrowId);
   }
 
   public static int opaque(final TintChoice choice) {

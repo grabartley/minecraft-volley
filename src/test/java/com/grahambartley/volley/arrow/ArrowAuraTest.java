@@ -35,9 +35,16 @@ class ArrowAuraTest {
     assertEquals(Integer.decode(expected), ArrowAura.color(Identifier.of(Volley.MOD_ID, path)));
   }
 
+  @ParameterizedTest
+  @CsvSource({"drill_arrow, true", "boomerang_arrow, true", "tnt_arrow, false"})
+  void spinsOnlyForBoringAndBouncingArrows(final String path, final boolean expected) {
+    assertEquals(expected, ArrowAura.spins(Identifier.of(Volley.MOD_ID, path)));
+  }
+
   @Test
   void rejectsNullIds() {
     assertThrows(NullPointerException.class, () -> ArrowAura.color(null));
     assertThrows(NullPointerException.class, () -> ArrowAura.glows(null));
+    assertThrows(NullPointerException.class, () -> ArrowAura.spins(null));
   }
 }

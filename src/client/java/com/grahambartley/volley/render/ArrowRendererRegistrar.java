@@ -34,7 +34,9 @@ public final class ArrowRendererRegistrar {
     }
     EntityRendererRegistry.register(
         arrow.entityType(),
-        context -> new BaseArrowEntityRenderer<>(context, texture, glowTexture(arrow.id())));
+        context ->
+            new BaseArrowEntityRenderer<>(
+                context, texture, glowTexture(arrow.id()), ArrowAura.spins(arrow.id())));
   }
 
   private static Optional<Identifier> glowTexture(final Identifier arrowId) {

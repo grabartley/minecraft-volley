@@ -94,6 +94,10 @@ public abstract class BaseArrowEntity extends PersistentProjectileEntity {
     }
   }
 
+  public boolean inFlight() {
+    return !inGround;
+  }
+
   public Optional<LivingEntity> shooter() {
     return getOwner() instanceof LivingEntity living ? Optional.of(living) : Optional.empty();
   }
