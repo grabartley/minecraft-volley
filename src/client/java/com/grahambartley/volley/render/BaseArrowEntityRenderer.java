@@ -85,7 +85,9 @@ public class BaseArrowEntityRenderer<E extends BaseArrowEntity>
           matrices,
           vertexConsumers,
           LightmapTextureManager.pack(
-              GlowPulse.blockLight(entity.age + tickDelta),
+              Math.max(
+                  LightmapTextureManager.getBlockLightCoordinates(light),
+                  GlowPulse.blockLight(entity.age + tickDelta)),
               LightmapTextureManager.getSkyLightCoordinates(light)));
     } finally {
       drawingGlow = false;

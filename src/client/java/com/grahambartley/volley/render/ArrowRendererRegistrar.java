@@ -3,6 +3,7 @@ package com.grahambartley.volley.render;
 import com.grahambartley.volley.ModArrows;
 import com.grahambartley.volley.arrow.ArrowAura;
 import com.grahambartley.volley.arrow.ArrowTextures;
+import com.grahambartley.volley.arrow.FlightSpin;
 import com.grahambartley.volley.arrow.RegisteredArrow;
 import com.grahambartley.volley.entity.BaseArrowEntity;
 import com.grahambartley.volley.entity.TintedArrowEntity;
@@ -36,7 +37,7 @@ public final class ArrowRendererRegistrar {
         arrow.entityType(),
         context ->
             new BaseArrowEntityRenderer<>(
-                context, texture, glowTexture(arrow.id()), ArrowAura.spins(arrow.id())));
+                context, texture, glowTexture(arrow.id()), FlightSpin.spins(arrow.id())));
   }
 
   private static Optional<Identifier> glowTexture(final Identifier arrowId) {

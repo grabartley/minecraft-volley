@@ -1,15 +1,50 @@
 package com.grahambartley.volley.arrow;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.grahambartley.volley.Volley;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.List;
+import java.util.stream.Stream;
 import net.minecraft.util.Identifier;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.MethodSource;
 
 class ArrowAuraTest {
+  private static final String ITEM_MODELS = "src/main/resources/assets/volley/models/item";
+  private static final String FLIGHT_TEXTURES =
+      "src/main/resources/assets/volley/textures/entity/arrow";
+
+  static List<String> arrowPaths() throws IOException {
+    try (Stream<Path> files = Files.list(Path.of(ITEM_MODELS))) {
+      return files
+          .map(file -> file.getFileName().toString().replace(".json", ""))
+          .filter(name -> name.endsWith("_arrow"))
+          .sorted()
+          .toList();
+    }
+  }
+
+  @ParameterizedTest
+  @MethodSource("arrowPaths")
+  void everyArrowHasItsOwnAccent(final String path) {
+    assertNotEquals(ArrowAura.DEFAULT_COLOR, ArrowAura.color(Identifier.of(Volley.MOD_ID, path)));
+  }
+
+  @ParameterizedTest
+  @MethodSource("arrowPaths")
+  void everyGlowingArrowShipsAGlowTexture(final String path) {
+    if (ArrowAura.glows(Identifier.of(Volley.MOD_ID, path))) {
+      assertTrue(Files.exists(Path.of(FLIGHT_TEXTURES, path + "_glow.png")), path);
+    }
+  }
 
   @ParameterizedTest
   @CsvSource({
@@ -35,16 +70,9 @@ class ArrowAuraTest {
     assertEquals(Integer.decode(expected), ArrowAura.color(Identifier.of(Volley.MOD_ID, path)));
   }
 
-  @ParameterizedTest
-  @CsvSource({"drill_arrow, true", "boomerang_arrow, true", "tnt_arrow, false"})
-  void spinsOnlyForBoringAndBouncingArrows(final String path, final boolean expected) {
-    assertEquals(expected, ArrowAura.spins(Identifier.of(Volley.MOD_ID, path)));
-  }
-
   @Test
   void rejectsNullIds() {
     assertThrows(NullPointerException.class, () -> ArrowAura.color(null));
     assertThrows(NullPointerException.class, () -> ArrowAura.glows(null));
-    assertThrows(NullPointerException.class, () -> ArrowAura.spins(null));
   }
 }

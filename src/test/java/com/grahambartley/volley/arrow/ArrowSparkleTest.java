@@ -38,6 +38,13 @@ class ArrowSparkleTest {
   }
 
   @ParameterizedTest
+  @CsvSource({"true, 3, true", "true, 4, false", "false, 3, false", "true, 0, true"})
+  void onlyGlowingArrowsSparkleEveryThirdTick(
+      final boolean glows, final int age, final boolean expected) {
+    assertEquals(expected, ArrowSparkle.sparkles(glows, age));
+  }
+
+  @ParameterizedTest
   @CsvSource({"true, 0.9, 18", "false, 0.6, 10"})
   void glowingArrowsSparkleHarder(final boolean glows, final float scale, final int count) {
     assertEquals(scale, ArrowSparkle.trailScale(glows), 1e-6);

@@ -14,6 +14,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.Registries;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
@@ -81,16 +82,23 @@ public abstract class BaseArrowEntity extends PersistentProjectileEntity {
     if (getWorld() instanceof ServerWorld serverWorld && !isRemoved()) {
       onArrowTick(serverWorld);
     } else if (getWorld().isClient() && ArrowSparkle.trails(inGround, isRemoved(), age)) {
-      getWorld()
-          .addParticle(
-              ArrowSparkle.dust(
-                  ArrowAura.color(arrowId()), ArrowSparkle.trailScale(ArrowAura.glows(arrowId()))),
-              getX(),
-              getY(),
-              getZ(),
-              0,
-              0,
-              0);
+      trail();
+    }
+  }
+
+  private void trail() {
+    final boolean glows = ArrowAura.glows(arrowId());
+    getWorld()
+        .addParticle(
+            ArrowSparkle.dust(ArrowAura.color(arrowId()), ArrowSparkle.trailScale(glows)),
+            getX(),
+            getY(),
+            getZ(),
+            0,
+            0,
+            0);
+    if (ArrowSparkle.sparkles(glows, age)) {
+      getWorld().addParticle(ParticleTypes.END_ROD, getX(), getY(), getZ(), 0, 0, 0);
     }
   }
 
@@ -165,6 +173,16 @@ public abstract class BaseArrowEntity extends PersistentProjectileEntity {
         BURST_SPREAD,
         BURST_SPEED);
     if (glows) {
+      world.spawnParticles(
+          ParticleTypes.END_ROD,
+          getX(),
+          getY(),
+          getZ(),
+          ArrowSparkle.GLOW_SPARK_COUNT,
+          BURST_SPREAD,
+          BURST_SPREAD,
+          BURST_SPREAD,
+          BURST_SPEED);
       ModSoundPlayer.playFrom(this, ModSounds.ARROW_GLOW_CHIME, CHIME_VOLUME, CHIME_PITCH);
     }
   }

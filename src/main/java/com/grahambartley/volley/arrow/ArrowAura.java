@@ -95,9 +95,6 @@ public final class ArrowAura {
           "torch_arrow",
           "tracer_arrow");
 
-  private static final Set<String> SPINNING =
-      Set.of("boomerang_arrow", "drill_arrow", "railgun_arrow", "ricochet_arrow");
-
   private ArrowAura() {}
 
   public static int color(final Identifier arrowId) {
@@ -108,10 +105,5 @@ public final class ArrowAura {
   public static boolean glows(final Identifier arrowId) {
     Objects.requireNonNull(arrowId, "arrowId");
     return GLOWING.contains(arrowId.getPath());
-  }
-
-  public static boolean spins(final Identifier arrowId) {
-    Objects.requireNonNull(arrowId, "arrowId");
-    return SPINNING.contains(arrowId.getPath());
   }
 }
