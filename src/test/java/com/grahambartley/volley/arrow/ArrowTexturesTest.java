@@ -12,6 +12,12 @@ import org.junit.jupiter.params.provider.CsvSource;
 class ArrowTexturesTest {
 
   @ParameterizedTest
+  @CsvSource({"volley", "minecraft"})
+  void sharesOnePartsTexturePerNamespace(final String namespace) {
+    assertEquals(Identifier.of(namespace, "item/arrow_parts"), ArrowTextures.itemParts(namespace));
+  }
+
+  @ParameterizedTest
   @CsvSource({
     "tnt_arrow, textures/entity/arrow/tnt_arrow.png",
     "rope_arrow, textures/entity/arrow/rope_arrow.png",

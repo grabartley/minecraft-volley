@@ -97,6 +97,14 @@ public final class ArrowAura {
 
   private ArrowAura() {}
 
+  static Set<String> colouredPaths() {
+    return COLORS.keySet();
+  }
+
+  static Set<String> glowingPaths() {
+    return GLOWING;
+  }
+
   public static int color(final Identifier arrowId) {
     Objects.requireNonNull(arrowId, "arrowId");
     return COLORS.getOrDefault(arrowId.getPath(), DEFAULT_COLOR);

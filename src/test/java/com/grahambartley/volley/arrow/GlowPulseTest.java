@@ -16,6 +16,12 @@ class GlowPulseTest {
   }
 
   @ParameterizedTest
+  @CsvSource({"0, 0, 13", "0, 14, 14", "4.712389, 12, 15", "14.137167, 15, 15"})
+  void neverDimsBelowTheLightAroundIt(final float ageTicks, final int ambient, final int expected) {
+    assertEquals(expected, GlowPulse.blockLight(ageTicks, ambient));
+  }
+
+  @ParameterizedTest
   @ValueSource(floats = {0f, 1.5f, 7f, 33.3f, 1000f})
   void neverLeavesTheBounds(final float ageTicks) {
     final int light = GlowPulse.blockLight(ageTicks);

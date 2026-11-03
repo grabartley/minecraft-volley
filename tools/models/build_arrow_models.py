@@ -5,6 +5,7 @@ repo, bbdir = sys.argv[1], sys.argv[2]
 assets = f"{repo}/src/main/resources/assets/volley"
 item_tex = f"{assets}/textures/item"
 template = json.load(open(f"{bbdir}/arrow_template.bbmodel"))
+BASE_COMMIT = "8fccab2"
 TEMPLATE_RGB = {(137, 103, 39), (40, 30, 11), (224, 224, 224), (198, 198, 198), (63, 63, 63)}
 FLETCHING_TINT = 1
 TINTED_HEAD_TINT = 0
@@ -18,7 +19,7 @@ DISPLAY = {
 
 
 def original(name):
-    raw = subprocess.run(["git", "-C", repo, "show", f"origin/main:src/main/resources/assets/volley/textures/item/{name}.png"], capture_output=True).stdout
+    raw = subprocess.run(["git", "-C", repo, "show", f"{BASE_COMMIT}:src/main/resources/assets/volley/textures/item/{name}.png"], capture_output=True).stdout
     return Image.open(io.BytesIO(raw)).convert("RGBA")
 
 
@@ -77,7 +78,7 @@ def build(name, original_name):
         if el["name"].startswith("fin"):
             for f in el["faces"].values():
                 f["tint"] = FLETCHING_TINT
-    model["textures"] = [texture("arrow_parts", f"{bbdir}/arrow_parts.png", 0), texture(name, f"{item_tex}/{name}.png", 1)]
+    model["textures"] = [texture("arrow_parts", f"{item_tex}/arrow_parts.png", 0), texture(name, f"{item_tex}/{name}.png", 1)]
     mask = lambda x, y: sprite.getpixel((x, y))[3] and not template_pixel(orig, x, y)
     cubes = [head_cube(a, b, y, 1, None) for a, b, y in runs(mask)]
     if tinted:
@@ -118,6 +119,8 @@ def to_java(model, name):
 os.makedirs(f"{bbdir}/arrows", exist_ok=True)
 for f in sorted(os.listdir(f"{assets}/models/item")):
     name = f[:-5]
+    if "_arrow" not in name:
+        continue
     path = f"{assets}/models/item/{f}"
     old = json.load(open(path))
     model = build(name, name)

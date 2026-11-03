@@ -32,6 +32,14 @@ class ArrowAuraTest {
     }
   }
 
+  @Test
+  void everyTableEntryNamesARealArrow() throws IOException {
+    final List<String> arrows = arrowPaths();
+
+    assertTrue(arrows.containsAll(ArrowAura.colouredPaths()), "colours");
+    assertTrue(arrows.containsAll(ArrowAura.glowingPaths()), "glows");
+  }
+
   @ParameterizedTest
   @MethodSource("arrowPaths")
   void everyArrowHasItsOwnAccent(final String path) {

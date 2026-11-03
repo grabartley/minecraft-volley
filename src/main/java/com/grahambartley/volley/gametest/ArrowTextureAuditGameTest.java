@@ -11,6 +11,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.TreeSet;
 import net.fabricmc.fabric.api.gametest.v1.FabricGameTest;
 import net.minecraft.test.GameTest;
 import net.minecraft.test.TestContext;
@@ -18,7 +19,7 @@ import net.minecraft.util.Identifier;
 
 public final class ArrowTextureAuditGameTest implements FabricGameTest {
   private static final String BATCH = "release-audit-textures";
-  private static final String LAYER = "layer";
+  private static final String PARTICLE = "particle";
 
   @GameTest(templateName = FabricGameTest.EMPTY_STRUCTURE, batchId = BATCH, tickLimit = 10)
   public void everyArrowHasAnItemSprite(TestContext context) {
@@ -68,10 +69,14 @@ public final class ArrowTextureAuditGameTest implements FabricGameTest {
       return Optional.empty();
     }
     final JsonObject textures = model.get().getAsJsonObject("textures");
+    final String sharedParts = ArrowTextures.itemParts(arrowId.getNamespace()).toString();
     final List<byte[]> layers = new ArrayList<>();
-    for (int layer = 0; textures.has(LAYER + layer); layer++) {
-      final Optional<byte[]> png =
-          ModAssetsSupport.texture(Identifier.of(textures.get(LAYER + layer).getAsString()));
+    for (final String key : new TreeSet<>(textures.keySet())) {
+      final String texture = textures.get(key).getAsString();
+      if (key.equals(PARTICLE) || texture.equals(sharedParts)) {
+        continue;
+      }
+      final Optional<byte[]> png = ModAssetsSupport.texture(Identifier.of(texture));
       if (png.isEmpty()) {
         return Optional.empty();
       }

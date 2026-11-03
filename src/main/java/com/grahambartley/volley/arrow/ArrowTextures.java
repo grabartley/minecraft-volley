@@ -8,8 +8,14 @@ public final class ArrowTextures {
   private static final String TINT_SUFFIX = "_tint";
   private static final String GLOW_SUFFIX = "_glow";
   private static final String PNG = ".png";
+  private static final String ITEM_PARTS_PATH = "item/arrow_parts";
 
   private ArrowTextures() {}
+
+  public static Identifier itemParts(final String namespace) {
+    Objects.requireNonNull(namespace, "namespace");
+    return Identifier.of(namespace, ITEM_PARTS_PATH);
+  }
 
   public static Identifier flight(final Identifier arrowId) {
     Objects.requireNonNull(arrowId, "arrowId");
