@@ -52,10 +52,7 @@ public final class ControlArrowEffectsGameTest implements FabricGameTest {
   private static void assertAppliesNoForbiddenEffect(
       final TestContext context, final RegisteredArrow<?> arrow) {
     final CowEntity target = ControlTestSupport.stillCowAt(context, TARGET_STAND);
-    MockPlayerSupport.fireEastStraight(
-        context,
-        MockPlayerSupport.playerAt(context, FiringRangeSupport.SHOOTER_STAND),
-        arrow.item());
+    FiringRangeSupport.fireEastStraightFromTheStand(context, arrow.item());
 
     context.runAtTick(
         FiringRangeSupport.LANDING_TICK,

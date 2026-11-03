@@ -17,10 +17,7 @@ public final class WindArrowEntityGameTest implements FabricGameTest {
     FiringRangeSupport.raiseBackstop(context);
     final ArmorStandEntity bystander =
         FiringRangeSupport.standOnPedestalAt(context, BYSTANDER_STAND);
-    MockPlayerSupport.fireEastFromBow(
-        context,
-        MockPlayerSupport.playerAt(context, FiringRangeSupport.SHOOTER_STAND),
-        ModArrows.WIND_ARROW.item());
+    FiringRangeSupport.fireEastFromBowFromTheStand(context, ModArrows.WIND_ARROW.item());
 
     context.runAtTick(
         FiringRangeSupport.LANDING_TICK,
@@ -35,10 +32,7 @@ public final class WindArrowEntityGameTest implements FabricGameTest {
   @GameTest(templateName = FiringRangeSupport.TEMPLATE, batchId = BATCH, tickLimit = 60)
   public void anArrowIsSpentByItsOwnBurstRatherThanEmbedding(TestContext context) {
     FiringRangeSupport.raiseBackstop(context);
-    MockPlayerSupport.fireEastFromBow(
-        context,
-        MockPlayerSupport.playerAt(context, FiringRangeSupport.SHOOTER_STAND),
-        ModArrows.WIND_ARROW.item());
+    FiringRangeSupport.fireEastFromBowFromTheStand(context, ModArrows.WIND_ARROW.item());
 
     context.runAtTick(
         FiringRangeSupport.LANDING_TICK,

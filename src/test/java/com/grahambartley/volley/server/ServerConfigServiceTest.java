@@ -73,7 +73,7 @@ class ServerConfigServiceTest {
 
     ServerConfigService.loadFromWorldRoot(worldRoot);
 
-    try (var entries = Files.list(new ConfigPaths(worldRoot).getModDir())) {
+    try (var entries = Files.list(configDir())) {
       assertTrue(entries.anyMatch(p -> p.getFileName().toString().contains(".broken.")));
     }
   }
@@ -109,10 +109,13 @@ class ServerConfigServiceTest {
   }
 
   private Path writeConfig(final String contents) throws IOException {
-    final ConfigPaths paths = new ConfigPaths(worldRoot);
-    Files.createDirectories(paths.getModDir());
-    final Path path = paths.getServerConfigPath();
+    Files.createDirectories(configDir());
+    final Path path = new ConfigPaths(worldRoot).getServerConfigPath();
     Files.writeString(path, contents, StandardCharsets.UTF_8);
     return path;
+  }
+
+  private Path configDir() {
+    return new ConfigPaths(worldRoot).getServerConfigPath().getParent();
   }
 }

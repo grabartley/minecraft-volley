@@ -16,10 +16,7 @@ public final class IncendiaryArrowEntityGameTest implements FabricGameTest {
   public void anArrowFiredFromABowSetsABystanderAlight(TestContext context) {
     FiringRangeSupport.raiseBackstop(context);
     final CowEntity bystander = FiringRangeSupport.liveTargetOnPedestalAt(context, BYSTANDER_STAND);
-    MockPlayerSupport.fireEastFromBow(
-        context,
-        MockPlayerSupport.playerAt(context, FiringRangeSupport.SHOOTER_STAND),
-        ModArrows.INCENDIARY_ARROW.item());
+    FiringRangeSupport.fireEastFromBowFromTheStand(context, ModArrows.INCENDIARY_ARROW.item());
 
     context.runAtTick(
         FiringRangeSupport.LANDING_TICK,
@@ -33,10 +30,7 @@ public final class IncendiaryArrowEntityGameTest implements FabricGameTest {
   @GameTest(templateName = FiringRangeSupport.TEMPLATE, batchId = BATCH, tickLimit = 80)
   public void anArrowLeavesFireWithoutBreakingTerrain(TestContext context) {
     FiringRangeSupport.raiseBackstop(context);
-    MockPlayerSupport.fireEastFromBow(
-        context,
-        MockPlayerSupport.playerAt(context, FiringRangeSupport.SHOOTER_STAND),
-        ModArrows.INCENDIARY_ARROW.item());
+    FiringRangeSupport.fireEastFromBowFromTheStand(context, ModArrows.INCENDIARY_ARROW.item());
 
     context.runAtTick(
         FiringRangeSupport.LANDING_TICK,

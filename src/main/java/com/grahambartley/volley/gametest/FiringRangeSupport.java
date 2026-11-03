@@ -46,6 +46,16 @@ final class FiringRangeSupport {
     context.putAndRemoveRedstoneBlock(relativePos.up(), DISPENSER_TRIGGER_TICKS);
   }
 
+  static void fireEastStraightFromTheStand(final TestContext context, final Item arrow) {
+    MockPlayerSupport.fireEastStraight(
+        context, MockPlayerSupport.playerAt(context, SHOOTER_STAND), arrow);
+  }
+
+  static void fireEastFromBowFromTheStand(final TestContext context, final Item arrow) {
+    MockPlayerSupport.fireEastFromBow(
+        context, MockPlayerSupport.playerAt(context, SHOOTER_STAND), arrow);
+  }
+
   static void raiseBackstop(final TestContext context) {
     context.setBlockState(BACKSTOP, Blocks.STONE);
     context.setBlockState(BACKSTOP.up(), Blocks.STONE);

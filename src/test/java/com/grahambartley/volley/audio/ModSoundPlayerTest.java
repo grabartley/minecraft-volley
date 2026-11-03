@@ -79,9 +79,10 @@ class ModSoundPlayerTest {
 
   @Test
   void isTheOnlyPlaceTheModReachesForAVanillaSoundOrPlaysOne() {
+    final List<Path> scanned = SOURCE_ROOTS.stream().flatMap(ModSoundPlayerTest::sources).toList();
+    assertTrue(scanned.containsAll(ALLOWED), "The scan should reach every file it exempts");
     final List<Path> bypassing =
-        SOURCE_ROOTS.stream()
-            .flatMap(ModSoundPlayerTest::sources)
+        scanned.stream()
             .filter(path -> !path.startsWith(GAMETESTS))
             .filter(path -> !ALLOWED.contains(path))
             .filter(ModSoundPlayerTest::bypasses)
