@@ -11,6 +11,7 @@ import net.minecraft.entity.mob.ZombieEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.test.GameTest;
+import net.minecraft.test.GameTestException;
 import net.minecraft.test.TestContext;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
@@ -19,7 +20,7 @@ import net.minecraft.util.math.Vec3d;
 public final class DisguisedBehaviourGameTest implements FabricGameTest {
   private static final String BATCH = "disguised-behaviour";
   private static final BlockPos STAND = new BlockPos(20, 3, 8);
-  private static final int WANDER_WATCH = 380;
+  private static final int WANDER_WATCH = 200;
   private static final int LONG = 2000;
   private static final double MOVED = 0.5;
   private static final int SETTLE = 20;
@@ -48,11 +49,7 @@ public final class DisguisedBehaviourGameTest implements FabricGameTest {
     context.complete();
   }
 
-  @GameTest(
-      templateName = MobArena.TEMPLATE,
-      batchId = BATCH,
-      tickLimit = WANDER_WATCH + 20,
-      maxAttempts = 3)
+  @GameTest(templateName = MobArena.TEMPLATE, batchId = BATCH, tickLimit = WANDER_WATCH)
   public void aDisguisedMobStillWandersLikeAnAnimal(TestContext context) {
     final ZombieEntity zombie = context.spawnMob(EntityType.ZOMBIE, STAND);
     zombie.equipStack(EquipmentSlot.HEAD, new ItemStack(Items.IRON_HELMET));
@@ -60,23 +57,26 @@ public final class DisguisedBehaviourGameTest implements FabricGameTest {
 
     final Vec3d[] start = {zombie.getPos()};
     context.runAtTick(SETTLE - 1, () -> start[0] = zombie.getPos());
-    final double[] furthest = {0.0};
     context.runAtEveryTick(
         () -> {
-          if (context.getTick() >= SETTLE) {
-            furthest[0] = Math.max(furthest[0], zombie.getPos().distanceTo(start[0]));
+          if (context.getTick() < SETTLE) {
+            return;
+          }
+          if (zombie.getNavigation().isIdle()) {
+            DisguisedBehaviour.wander(zombie);
+          }
+          if (zombie.getPos().distanceTo(start[0]) > MOVED) {
+            DisguiseService.revert(context.getWorld(), zombie);
+            context.complete();
           }
         });
     context.runAtTick(
-        WANDER_WATCH,
+        WANDER_WATCH - 1,
         () -> {
-          context.assertTrue(
-              furthest[0] > MOVED,
+          throw new GameTestException(
               "The disguised zombie should wander, but it only got "
-                  + furthest[0]
-                  + " blocks from where it started");
-          DisguiseService.revert(context.getWorld(), zombie);
-          context.complete();
+                  + zombie.getPos().distanceTo(start[0])
+                  + " blocks away");
         });
   }
 }

@@ -384,7 +384,7 @@ Six arrows that change a block at range: break it, raise ground on top of it, dr
 
 Every setting is read fresh on impact, so a change takes effect on the next shot. What a terrain arrow changed is never put back, apart from the pillar and web, which are timed.
 
-Each arrow has its own item sprite and flight texture, drawn from its recipe's material: an iron pickaxe, a dirt column, a sponge, a faceted ice gem, a cobweb tangle and a paint brush.
+Each arrow has its own item model, drawn from its recipe's material: an iron pickaxe, a dirt column, a sponge, a faceted ice gem, a cobweb tangle and a paint brush.
 
 ## Agriculture Arrows
 
@@ -410,7 +410,7 @@ Six arrows that do a farm's chores at range. Each one runs vanilla's own code fo
 | Drops | Harvest and shear drops go into the shooter's inventory, and anything that does not fit stays on the ground where vanilla put it. A dispensed arrow leaves everything on the ground. A creative player with a full inventory loses the overflow, as vanilla's own pickup does |
 | Bees | `agriculture.bee.count` real bees, released at the impact point. They go for a creature the arrow struck, and a shot into the ground releases them with nothing to go for. They never sting the shooter, and one that turns on the shooter is sent back after its target. They cannot enter a hive or breed, and each is removed `agriculture.bee.lifetimeTicks` after it was released, including when its chunk comes back after it should have gone |
 
-Every setting is read fresh on impact, so a change takes effect on the next shot. A blossom or harvest arrow that strikes a block centres on the space in front of the face it struck, where a crop or sapling stands, so a radius of zero reaches that space alone and not the block struck. Each arrow has its own item sprite and flight texture, drawn from its recipe's material: a bone meal blossom, an iron hoe, a watered furrow, a sprout, open shears and a bee.
+Every setting is read fresh on impact, so a change takes effect on the next shot. A blossom or harvest arrow that strikes a block centres on the space in front of the face it struck, where a crop or sapling stands, so a radius of zero reaches that space alone and not the block struck. Each arrow has its own item model, drawn from its recipe's material: a bone meal blossom, an iron hoe, a watered furrow, a sprout, open shears and a bee.
 
 ## Traversal Arrows
 
@@ -440,7 +440,7 @@ Seven arrows that leave a way across terrain a bow can cross and legs cannot. Th
 | Bridge | Oak planks, level with the block struck, starting beside it and running back toward where the shooter stood when it landed, one block wide and edge to edge so it can be walked. It ends beneath the shooter, at `traversal.bridge.lengthBlocks`, or at the first position that is not open or where something stands, whichever comes first. A dispensed bridge runs back the way the arrow flew. It clears away after `traversal.bridge.lifetimeTicks` |
 | Blocks with no item | The zipline cable and the trampoline are the mod's own blocks, with no item form, no recipe and no drop, and [ADR 0039](adr/0039-a-traversal-structure-worth-more-than-its-recipe-is-built-from-the-mods-own-blocks.md) covers why those two are not vanilla chain and slime. The vines, scaffolding and planks are vanilla, and a plank or scaffold mined out of a live structure drops as it always would |
 
-Every setting is read fresh on impact, so a change takes effect on the next shot; a ride and a tow also read their speed every tick. No pending anchor, ride, tow or column survives a restart: all four live in memory only, and the cable, pads, scaffolding and planks are timed structures, cleared before the world saves. Each arrow has its own item sprite and flight texture, drawn from its recipe's material: a chain link, the grapple's hook turned over, rising breeze chevrons, a climbing vine, a slime cube, a bamboo scaffold frame and a plank laid across the shaft.
+Every setting is read fresh on impact, so a change takes effect on the next shot; a ride and a tow also read their speed every tick. No pending anchor, ride, tow or column survives a restart: all four live in memory only, and the cable, pads, scaffolding and planks are timed structures, cleared before the world saves. Each arrow has its own item model, drawn from its recipe's material: a chain link, the grapple's hook turned over, rising breeze chevrons, a climbing vine, a slime cube, a bamboo scaffold frame and a plank laid across the shaft.
 
 ## Discovery Arrows
 
@@ -467,7 +467,7 @@ Six arrows that tell you what is somewhere you cannot see: whether it is lit, wh
 | Watcher report | At most once per `discovery.tripwire.reportIntervalTicks`, to the shooter alone |
 | Particles | Nothing here is drawn with particles, so everything still reads on the Minimal particle setting |
 
-Every setting is read fresh on impact, and a watcher keeps the interval it was set with. The beacon, prospector and sonar arrows play their own sounds, and the tripwire arrow plays one when set and another when it reports, listed under Sounds. The torch plays vanilla's torch placement sound. Each arrow has its own item sprite and flight texture, drawn from its recipe's material: a lit torch, a glowstone block with a rising beam, an amethyst cluster, an echo shard with sonar arcs, the glow ink head with a gunpowder trail, and a sculk sensor. [ADR 0041](adr/0041-reveals-are-drawn-by-the-client-from-what-the-server-found-once.md) covers why the pulses, the path and the watcher work the way they do.
+Every setting is read fresh on impact, and a watcher keeps the interval it was set with. The beacon, prospector and sonar arrows play their own sounds, and the tripwire arrow plays one when set and another when it reports, listed under Sounds. The torch plays vanilla's torch placement sound. Each arrow has its own item model, drawn from its recipe's material: a lit torch, a glowstone block with a rising beam, an amethyst cluster, an echo shard with sonar arcs, the glow ink head with a gunpowder trail, and a sculk sensor. [ADR 0041](adr/0041-reveals-are-drawn-by-the-client-from-what-the-server-found-once.md) covers why the pulses, the path and the watcher work the way they do.
 
 ## Chaos Arrows
 
@@ -493,7 +493,7 @@ Six arrows that exist for the fun of it. Each has its own switch, `chaos.party.e
 | Polymorph | Only a hostile mob. A player, a villager or wandering trader, anything with an owner, and the wither, the ender dragon and the warden are never changed, and this is not a setting: the arrow glances off them and does nothing. A disguised mob keeps being itself on the server. Its AI is paused and replaced by an animal's aimless wandering, so it cannot attack, shoot, explode or hurt by touch, and it makes no ambient sound. A lit creeper holds its fuse until the disguise ends, and a drawn bow is lowered. Everything else about it, its health, equipment, name and target, is simply left alone, so it is all still there when it changes back, and damage it takes while disguised stays taken |
 | Disguise | Which form is drawn, who sees it, and every way it ends are described under Disguises above. A disguise lasts `chaos.polymorph.durationTicks`, and a duration of zero disguises nothing |
 
-Every setting is read fresh on impact. The chicken, puffer, stink, boomerang and polymorph arrows play their own sounds, listed under Sounds; the party arrow plays its disc. Each arrow has its own item sprite and flight texture: a hen's head, a spiked pufferfish, a rotten lump with an odour line, a chorus-purple return path, and a head half sculk and half pig. [ADR 0042](adr/0042-a-disguise-is-drawn-rather-than-swapped.md) covers why a disguise is drawn by the client rather than a swap of one mob for another.
+Every setting is read fresh on impact. The chicken, puffer, stink, boomerang and polymorph arrows play their own sounds, listed under Sounds; the party arrow plays its disc. Each arrow has its own item model: a hen's head, a spiked pufferfish, a rotten lump with an odour line, a chorus-purple return path, and a head half sculk and half pig. [ADR 0042](adr/0042-a-disguise-is-drawn-rather-than-swapped.md) covers why a disguise is drawn by the client rather than a swap of one mob for another.
 
 ## Social Arrows
 
@@ -511,7 +511,7 @@ Three arrows aimed at someone or something other than what the shooter is holdin
 | Snow golem | An ordinary vanilla snow golem, owned by nobody, built without its pumpkin so a twelve-arrow craft cannot be sheared back into twelve pumpkins. It fights and dies as any snow golem does. It melts after `social.snowGolem.lifetimeTicks`: its melting time is saved on the golem, so one that was unloaded past its time melts as soon as it loads, and a golem built by hand never melts. It is refused, and the arrow embeds to be picked back up, where a player could not build one: beyond the world border, outside the build limit, without two blocks of room, for a shooter in adventure mode, and inside spawn protection for anyone the server would not let build there (TOGETHER-7, TOGETHER-8) |
 | Magnet | Moves item entities and experience orbs only, never a creature, a vehicle or an arrow (TOGETHER-9). It sets their speed toward the shooter each tick for up to five seconds and stops each one dead when it arrives, so the shooter picks it up under vanilla's rules and a full inventory leaves it at their feet rather than flying past (TOGETHER-10). A pull is held in memory only, so a restart leaves pulled items where they were. A dispensed magnet arrow, with no shooter, pulls nothing (TOGETHER-11) |
 
-The courier, snow golem and magnet arrows play their own sounds, listed under Sounds. Each arrow has its own item sprite and flight texture: an ender chest, a carved pumpkin on a snowball, and a horseshoe magnet. A loaded courier arrow swaps to a second sprite with a tied bundle on the chest's lid, chosen by the `volley:loaded` item model predicate, so a player can see it is carrying something before they fire it.
+The courier, snow golem and magnet arrows play their own sounds, listed under Sounds. Each arrow has its own item model: an ender chest, a carved pumpkin on a snowball, and a horseshoe magnet. A loaded courier arrow swaps to a second sprite with a tied bundle on the chest's lid, chosen by the `volley:loaded` item model predicate, so a player can see it is carrying something before they fire it.
 
 ## Ricochet Arrow
 
@@ -729,7 +729,7 @@ Every sound asset is mono. Minecraft only applies distance attenuation and stere
 
 ## Textures
 
-Texture assets live under `assets/volley/textures/`, laid out so a texture sits in `item/`, `block/`, `entity/arrow/`, or `gui/container/` according to what draws it. The fletching station screen's texture is client-only, so it ships from the client resources rather than beside the rest. The PNG is the source of truth and the thing that gets edited.
+Texture assets live under `assets/volley/textures/`, laid out so a texture sits in `item/`, `block/`, or `gui/container/` according to what draws it. The fletching station screen's texture is client-only, so it ships from the client resources rather than beside the rest. The PNG is the source of truth and the thing that gets edited.
 
 | Texture | Used for |
 |---|---|
@@ -803,72 +803,6 @@ Texture assets live under `assets/volley/textures/`, laid out so a texture sits 
 | `textures/block/rope.png` | The climbable rope the rope arrow leaves behind |
 | `textures/block/beacon_beam.png` | The core of the beam a beacon arrow raises, animated to scroll upward by its `.png.mcmeta`, two ticks a frame |
 | `textures/block/beacon_beam_glow.png` | The fainter glow around that core, animated the same way by its own `.png.mcmeta` |
-| `textures/entity/arrow/grapple_arrow.png` | The grapple arrow in flight and planted in a block |
-| `textures/entity/arrow/rope_arrow.png` | The rope arrow in flight and planted in a block |
-| `textures/entity/arrow/glow_ink_arrow.png` | The glow ink arrow in flight and planted in a block |
-| `textures/entity/arrow/redstone_arrow.png` | The redstone arrow in flight and planted in a block |
-| `textures/entity/arrow/wind_arrow.png` | The wind arrow in flight and planted in a block |
-| `textures/entity/arrow/gunpowder_arrow.png` | The gunpowder arrow in flight and planted in a block |
-| `textures/entity/arrow/tnt_arrow.png` | The TNT arrow in flight and planted in a block |
-| `textures/entity/arrow/fire_charge_arrow.png` | The fire charge arrow in flight and planted in a block |
-| `textures/entity/arrow/incendiary_arrow.png` | The incendiary arrow in flight and planted in a block |
-| `textures/entity/arrow/gravity_arrow.png` | The gravity arrow in flight and planted in a block |
-| `textures/entity/arrow/ricochet_arrow.png` | The ricochet arrow in flight and planted in a block |
-| `textures/entity/arrow/ender_pearl_arrow.png` | The ender pearl arrow in flight and planted in a block |
-| `textures/entity/arrow/recall_arrow.png` | The recall arrow in flight and planted in a block |
-| `textures/entity/arrow/shock_arrow.png` | The shock arrow in flight and planted in a block |
-| `textures/entity/arrow/lifesteal_arrow.png` | The lifesteal arrow in flight and planted in a block |
-| `textures/entity/arrow/rust_arrow.png` | The rust arrow in flight and planted in a block |
-| `textures/entity/arrow/milk_arrow.png` | The milk arrow in flight and planted in a block |
-| `textures/entity/arrow/haste_arrow.png` | The haste arrow in flight and planted in a block |
-| `textures/entity/arrow/guard_arrow.png` | The guard arrow in flight and planted in a block |
-| `textures/entity/arrow/homing_arrow.png` | The homing arrow in flight and planted in a block |
-| `textures/entity/arrow/volley_arrow.png` | The volley arrow in flight and planted in a block |
-| `textures/entity/arrow/railgun_arrow.png` | The railgun arrow in flight and planted in a block |
-| `textures/entity/arrow/frost_arrow.png` | The frost arrow in flight and planted in a block |
-| `textures/entity/arrow/levitation_arrow.png` | The levitation arrow in flight and planted in a block |
-| `textures/entity/arrow/taunt_arrow.png` | The taunt arrow in flight and planted in a block |
-| `textures/entity/arrow/repel_arrow.png` | The repel arrow in flight and planted in a block |
-| `textures/entity/arrow/allegiance_arrow.png` | The allegiance arrow in flight and planted in a block |
-| `textures/entity/arrow/smoke_arrow.png` | The smoke arrow in flight and planted in a block |
-| `textures/entity/arrow/disarm_arrow.png` | The disarm arrow in flight and planted in a block |
-| `textures/entity/arrow/paint_arrow.png` | The paint arrow in flight and planted in a block, left untinted |
-| `textures/entity/arrow/paint_arrow_tint.png` | The paint arrow's head in flight, drawn over the arrow and tinted to its dye |
-| `textures/entity/arrow/drill_arrow.png` | The drill arrow in flight and planted in a block |
-| `textures/entity/arrow/pillar_arrow.png` | The pillar arrow in flight and planted in a block |
-| `textures/entity/arrow/drain_arrow.png` | The drain arrow in flight and planted in a block |
-| `textures/entity/arrow/freeze_arrow.png` | The freeze arrow in flight and planted in a block |
-| `textures/entity/arrow/web_arrow.png` | The web arrow in flight and planted in a block |
-| `textures/entity/arrow/blossom_arrow.png` | The blossom arrow in flight and planted in a block |
-| `textures/entity/arrow/harvest_arrow.png` | The harvest arrow in flight and planted in a block |
-| `textures/entity/arrow/till_arrow.png` | The till arrow in flight and planted in a block |
-| `textures/entity/arrow/sapling_arrow.png` | The sapling arrow in flight and planted in a block, left untinted |
-| `textures/entity/arrow/sapling_arrow_tint.png` | The sapling arrow's head in flight, tinted to its sapling |
-| `textures/entity/arrow/shear_arrow.png` | The shear arrow in flight and planted in a block |
-| `textures/entity/arrow/bee_arrow.png` | The bee arrow in flight and planted in a block |
-| `textures/entity/arrow/zipline_arrow.png` | The zipline arrow in flight and planted in a block |
-| `textures/entity/arrow/tow_arrow.png` | The tow arrow in flight and planted in a block |
-| `textures/entity/arrow/updraft_arrow.png` | The updraft arrow in flight and planted in a block |
-| `textures/entity/arrow/vine_arrow.png` | The vine arrow in flight and planted in a block |
-| `textures/entity/arrow/trampoline_arrow.png` | The trampoline arrow in flight and planted in a block |
-| `textures/entity/arrow/scaffold_arrow.png` | The scaffold arrow in flight and planted in a block |
-| `textures/entity/arrow/bridge_arrow.png` | The bridge arrow in flight and planted in a block |
-| `textures/entity/arrow/torch_arrow.png` | The torch arrow in flight and planted in a block |
-| `textures/entity/arrow/beacon_arrow.png` | The beacon arrow in flight and planted in a block |
-| `textures/entity/arrow/prospector_arrow.png` | The prospector arrow in flight and planted in a block |
-| `textures/entity/arrow/sonar_arrow.png` | The sonar arrow in flight and planted in a block |
-| `textures/entity/arrow/tracer_arrow.png` | The tracer arrow in flight and planted in a block |
-| `textures/entity/arrow/tripwire_arrow.png` | The tripwire arrow in flight and planted in a block |
-| `textures/entity/arrow/party_arrow.png` | The party arrow in flight and planted in a block, left untinted |
-| `textures/entity/arrow/party_arrow_tint.png` | The party arrow's head in flight, tinted to its disc |
-| `textures/entity/arrow/chicken_arrow.png` | The chicken arrow in flight and planted in a block |
-| `textures/entity/arrow/puffer_arrow.png` | The puffer arrow in flight and planted in a block |
-| `textures/entity/arrow/stink_arrow.png` | The stink arrow in flight and planted in a block |
-| `textures/entity/arrow/boomerang_arrow.png` | The boomerang arrow in flight and planted in a block |
-| `textures/entity/arrow/polymorph_arrow.png` | The polymorph arrow in flight and planted in a block |
-| `textures/entity/arrow/courier_arrow.png` | The courier arrow in flight and planted in a block |
-| `textures/entity/arrow/snow_golem_arrow.png` | The snow golem arrow in flight and planted in a block |
-| `textures/entity/arrow/magnet_arrow.png` | The magnet arrow in flight and planted in a block |
 | `textures/gui/container/fletching_station.png` | The fletching station screen: panel, slot wells, recipe list, and the row and scroller states |
 
 The three utility arrows are the family that has to read as tools rather than as weapons, so none of them carries a blade. Each one instead takes the silhouette of the ingredient it is crafted from: a bulging sac for the glow ink arrow, an open vortex ring for the wind arrow, and a compact faceted crystal for the redstone arrow. That split matters more than colour does, because the redstone arrow and the TNT arrow are both red and the glow ink arrow and the wind arrow are both pale and cold. A player picking between them at hotbar size is reading the shape.
@@ -877,15 +811,7 @@ The two physics arrows have the same job of reading as terrain manipulation rath
 
 The ricochet arrow is the harder of the two, because the grapple arrow is also hook derived and the two must never be confused in a hotbar. They are separated by silhouette before colour: the grapple splays three prongs wide across the canvas, and the ricochet is a single narrow crook curling back over itself. Colour then reinforces it, warm iron against the grapple's cold blue steel, and dark enough that it does not drift toward the wind arrow's pale ring either.
 
-The two in-flight textures are 32x32 rather than 16x16, and only a corner of that canvas is ever drawn. Vanilla's projectile renderer unwraps an arrow as rows 0 to 4 across the full sixteen columns, which is the side profile from nock to tip, plus rows 5 to 9 in columns 0 to 4, which is the fletching cross seen end on. Everything else stays transparent. That one profile is then drawn four times, rotated around the arrow's axis, so a player sees overlapping copies of it from almost every angle and fine detail cross-hatches into mush.
-
-It is also why both textures are shaded symmetrically about the shaft rather than lit from one side. A profile drawn mirrored on top of itself turns any top-to-bottom gradient into a two tone head, brightest where one copy's lit edge lands on the other's shadow, and that lands hardest on exactly the element carrying the arrow's identity. Symmetric shading survives the mirror intact, so form has to come from the silhouette and from tone along the arrow's length instead.
-
-Both arrows therefore spend their detail budget on a single silhouette break rather than on shading. The grapple arrow splays three tines off a cold blue steel head, which is the widest head in the mod and the thing that separates it from a vanilla arrow at any distance. The rope arrow keeps its head narrow, an anchor point rather than a claw, and carries a pale hemp coil part way down the shaft instead, so the two traversal arrows are told apart by where the mass sits rather than by colour. That matters more here than anywhere else in the mod, because a player watches a grapple arrow fly its whole arc to an anchor before being pulled to it.
-
-The three utility arrows reach the same problem from the other side, because all three are a coloured lump on a tip and colour is the first thing the mirrored profile destroys. They are separated by how far the head departs from the shaft instead. The glow ink sac is the widest, bulging a pixel clear of the shaft on both outer rows; the redstone crystal is held entirely inside the three middle rows, so it stays square and compact where the sac swells; and the wind ring keeps its single-pixel hole, which is the one feature that survives the mirror intact, since the overlaid copies land hole on hole rather than lit edge on shadow. The sac's slung-under-the-axis pose from its item sprite does not survive the mirror at all and is moved back onto the axis here, because two mirrored copies of an off-axis head read as two heads.
-
-Every in-flight head is built with mass rather than as a line. It swells to the full five rows of the profile band at its shoulder and tapers to a single lit pixel at the point, with the outer rows held in the darkest tone and the centre line the brightest. Vanilla's own arrow gets away with a three row head because it is the shape a player already knows; a mod arrow carrying an identity has to be read at a glance while moving, and a head drawn flat along the centre line has no depth to lose. It comes back from the mirrored profile as a smear. Mass and symmetric tone are what survive, and the mod's heads run from twenty two pixels for the lightest to thirty two for the heaviest, which is also the order the explosive tiers escalate in.
+An arrow in flight or stuck in a block draws its own item model, not a separate flat texture, so the arrow a player watches fly is the one they picked from the hotbar. The model is scaled to a vanilla arrow's length and placed so its tip sits where vanilla's tip does, which keeps a stuck arrow sunk into the block by the same amount. A glowing arrow pulses the light on the whole model.
 
 The four explosive arrows are the one family that can lean on silhouette outright, because they are the only arrows carrying blades and a blade can be lengthened and barbed without ceasing to read as a blade. They are ordered by reach and barb count: the gunpowder arrow is the shortest and carries none, the TNT arrow reaches a pixel further and gains one, and the fire charge arrow reaches furthest and carries two. That ordering is the tier ladder made visible, so a player watching an arrow fly knows which one is about to go off before it does.
 
@@ -920,7 +846,7 @@ Every region the screen draws is fixed, so the implementation reads coordinates 
 
 The input and result slots deliberately carry no art of their own, because a player reads a slot by its bevel and a station that decorated its slots would be claiming they behave unusually when they do not.
 
-The rope block is the one texture with a tiling contract, because a descent stacks it vertically and any mismatch across the tile boundary reads as a seam running the whole length of the drop. Its strand grooves step one column per row on a four row cycle, and sixteen divides by four, so row fifteen hands off to row zero mid-diagonal and the twist runs unbroken. Anything that changes the number of rows in that cycle to something other than a factor of sixteen puts a seam back. The single whipping band is what a ladder gets from its rungs, a repeat that tells a player the block is climbable, and it sits away from the tile boundary so it never reads as the seam it is not.
+The rope block is a 4x4 strand that fills its outline, and it is the one texture with a tiling contract, because a descent stacks it vertically and any mismatch across the tile boundary reads as a seam running the whole length of the drop. Its strand grooves step one column per row on a four row cycle, and sixteen divides by four, so row fifteen hands off to row zero mid-diagonal and the twist runs unbroken. Anything that changes the number of rows in that cycle to something other than a factor of sixteen puts a seam back.
 
 ## Where settings live
 

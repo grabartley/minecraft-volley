@@ -15,7 +15,7 @@ Hardcoding is fine when there is one arrow. Across a dozen arrows it becomes a d
 
 An arrow's identifier is registered into the item registry and the entity type registry under the same `Identifier`, and the registrar is the only thing that constructs it. `BaseArrowEntity.getDefaultItemStack` derives its item from its own entity type through that shared identifier rather than naming an item directly.
 
-The client derives an arrow's texture from the same identifier by convention, at `textures/entity/arrow/<path>.png`, so a renderer needs no registration data of its own.
+The client draws an arrow entity with the item model registered under the same identifier, so a renderer needs no registration data of its own.
 
 ## Consequences
 
