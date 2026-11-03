@@ -23,6 +23,8 @@ bow, a crossbow or a dispenser, and they all work in multiplayer. Every arrow ha
 and coloured fletching, leaves a trail in its colour, and bursts on impact. Energy arrows glow in
 flight, and drills and boomerangs spin.
 
+<p align="center"><img src="docs/images/arrows/all.png" alt="All sixty-three Volley arrows" width="800"></p>
+
 > **Alpha:** the mod is still in alpha, and feedback is very welcome.
 > [Open an issue](https://github.com/grabartley/minecraft-volley/issues/new) and tell me
 > what you think.
@@ -35,6 +37,8 @@ flight, and drills and boomerangs spin.
 4. Fire one from a bow at the side of something tall.
 
 ## Getting around
+
+<p align="center"><img src="docs/images/arrows/getting-around-1.png" alt="Grapple, rope, zipline, tow, updraft and trampoline arrows" width="640"></p>
 
 The **grapple arrow** hooks into the block it hits and pulls you to it. You take no fall damage when
 you arrive, and the arrow comes back to you, so one arrow can take you up a mountain a stretch at a
@@ -54,7 +58,11 @@ bounces you back up. The **vine**, **scaffold** and **bridge** arrows build some
 walk on. The **ender pearl arrow** teleports you to where it lands, and the **recall arrow** brings
 whatever it hits back to you. Most of what these build goes away after a while.
 
+<p align="center"><img src="docs/images/arrows/getting-around-2.png" alt="Vine, scaffold, bridge, ender pearl and recall arrows" width="640"></p>
+
 ## Explosives
+
+<p align="center"><img src="docs/images/arrows/explosives-1.png" alt="Gunpowder, TNT, fire charge and incendiary arrows" width="800"></p>
 
 Explosive arrows do not go off when they hit. They stick in a block or ride the mob they hit, start
 beeping, and show a countdown ring when you look at them, which gives you a few seconds to get
@@ -65,6 +73,9 @@ it. The **incendiary arrow** never explodes, but it sets everything around it on
 
 ## Changing the ground
 
+<p align="center"><img src="docs/images/arrows/changing-the-ground-1.png" alt="Gravity, drill, pillar and drain arrows" width="800"></p>
+<p align="center"><img src="docs/images/arrows/changing-the-ground-2.png" alt="Freeze, web and paint arrows" width="640"></p>
+
 The **gravity arrow** makes a ball of blocks around where it hits fall like sand, which is a quick
 way through a ceiling. The **drill arrow** mines the block it hits and gives you the drop. The
 **pillar** arrow pushes up a column of dirt for a while. The **drain** arrow soaks up water, and the
@@ -72,6 +83,9 @@ way through a ceiling. The **drill arrow** mines the block it hits and gives you
 **paint** arrow comes in all sixteen dye colours and recolours wool, glass, terracotta and sheep.
 
 ## Finding things
+
+<p align="center"><img src="docs/images/arrows/finding-things-1.png" alt="Glow ink, torch, beacon and prospector arrows" width="800"></p>
+<p align="center"><img src="docs/images/arrows/finding-things-2.png" alt="Sonar, tracer and tripwire arrows" width="640"></p>
 
 The **glow ink arrow** makes whatever it hits glow through walls, for everyone on the server.
 
@@ -85,6 +99,8 @@ when something walks through it.
 
 ## Farming
 
+<p align="center"><img src="docs/images/arrows/farming-1.png" alt="Blossom, harvest, till, sapling, shear and bee arrows" width="640"></p>
+
 The **blossom** arrow bone meals the plants around it. The **harvest** arrow picks the ripe crops
 nearby, replants them and puts the food in your inventory. The **till** arrow turns the ground into
 wet farmland, the **sapling** arrow plants a sapling, and the **shear** arrow shears a sheep from
@@ -92,6 +108,9 @@ across the field. The **bee** arrow releases a few bees that attack whatever you
 alone.
 
 ## Fighting
+
+<p align="center"><img src="docs/images/arrows/fighting-1.png" alt="Shock, lifesteal, homing, volley, railgun and rust arrows" width="640"></p>
+<p align="center"><img src="docs/images/arrows/fighting-2.png" alt="Haste, guard, milk, taunt, repel and allegiance arrows" width="640"></p>
 
 The **shock arrow** calls down lightning that jumps to one more target. The **lifesteal arrow**
 heals you for part of the damage it deals. The **homing arrow** curves toward hostile mobs, and the
@@ -105,7 +124,11 @@ fighting you onto whatever it hits, and the **repel** arrow sends nearby mobs ru
 way powder snow does, the **levitation** arrow floats it up, the **smoke** arrow blinds it, and the
 **disarm** arrow knocks the weapon out of its hand.
 
+<p align="center"><img src="docs/images/arrows/fighting-3.png" alt="Frost, levitation, smoke and disarm arrows" width="800"></p>
+
 ## Just for fun
+
+<p align="center"><img src="docs/images/arrows/just-for-fun-1.png" alt="Party, chicken, puffer, stink, boomerang and polymorph arrows" width="640"></p>
 
 The **party arrow** bursts into firework sparks and plays the music disc it was made with. The
 **chicken arrow** drops off a live chicken. The **puffer arrow** blows whatever it hits up to twice
@@ -115,12 +138,16 @@ a hostile mob as a farm animal for a while.
 
 ## Helping friends
 
+<p align="center"><img src="docs/images/arrows/helping-friends-1.png" alt="Courier, snow golem and magnet arrows" width="640"></p>
+
 The **courier arrow** carries a stack of items to the player it hits, even with PvP off. Load it by
 crafting an empty courier arrow together with the stack you want to send. The **snow golem arrow**
 builds a snow golem that melts after a while. The **magnet arrow** pulls loose items and experience
 toward you.
 
 ## Other arrows
+
+<p align="center"><img src="docs/images/arrows/other-1.png" alt="Redstone, wind and ricochet arrows" width="640"></p>
 
 The **redstone** arrow powers the block it hits for a moment, so you can open a door or fire a
 piston from a distance. The **wind** arrow pushes things away like a wind charge, and the
