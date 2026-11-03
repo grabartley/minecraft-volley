@@ -25,10 +25,7 @@ public final class FrostArrowEntityGameTest implements FabricGameTest {
   @GameTest(templateName = FiringRangeSupport.TEMPLATE, batchId = BATCH, tickLimit = 60)
   public void anArrowFiredFromABowBuildsFreezeOnTheEntityItHits(TestContext context) {
     final CowEntity target = ControlTestSupport.sturdyStillCowAt(context, TARGET_STAND);
-    MockPlayerSupport.fireEastStraight(
-        context,
-        MockPlayerSupport.playerAt(context, FiringRangeSupport.SHOOTER_STAND),
-        ModArrows.FROST_ARROW.item());
+    FiringRangeSupport.fireEastStraightFromTheStand(context, ModArrows.FROST_ARROW.item());
 
     context.runAtTick(
         FiringRangeSupport.LANDING_TICK,
@@ -59,10 +56,7 @@ public final class FrostArrowEntityGameTest implements FabricGameTest {
   @GameTest(templateName = FiringRangeSupport.TEMPLATE, batchId = BATCH, tickLimit = 200)
   public void theFreezeIsHeldRatherThanThawingStraightAway(TestContext context) {
     final CowEntity target = ControlTestSupport.sturdyStillCowAt(context, TARGET_STAND);
-    MockPlayerSupport.fireEastStraight(
-        context,
-        MockPlayerSupport.playerAt(context, FiringRangeSupport.SHOOTER_STAND),
-        ModArrows.FROST_ARROW.item());
+    FiringRangeSupport.fireEastStraightFromTheStand(context, ModArrows.FROST_ARROW.item());
 
     context.runAtTick(
         LONG_AFTER_LANDING,
@@ -80,10 +74,7 @@ public final class FrostArrowEntityGameTest implements FabricGameTest {
   public void aTargetWearingLeatherIsLeftUnfrozen(TestContext context) {
     final CowEntity target = ControlTestSupport.sturdyStillCowAt(context, TARGET_STAND);
     target.equipStack(EquipmentSlot.FEET, new ItemStack(Items.LEATHER_BOOTS));
-    MockPlayerSupport.fireEastStraight(
-        context,
-        MockPlayerSupport.playerAt(context, FiringRangeSupport.SHOOTER_STAND),
-        ModArrows.FROST_ARROW.item());
+    FiringRangeSupport.fireEastStraightFromTheStand(context, ModArrows.FROST_ARROW.item());
 
     context.runAtTick(
         FiringRangeSupport.LANDING_TICK,
@@ -99,10 +90,7 @@ public final class FrostArrowEntityGameTest implements FabricGameTest {
   public void anArrowThatHitsOnlyABlockFreezesNobody(TestContext context) {
     FiringRangeSupport.raiseBackstop(context);
     final CowEntity bystander = ControlTestSupport.stillCowAt(context, BYSTANDER_STAND);
-    MockPlayerSupport.fireEastFromBow(
-        context,
-        MockPlayerSupport.playerAt(context, FiringRangeSupport.SHOOTER_STAND),
-        ModArrows.FROST_ARROW.item());
+    FiringRangeSupport.fireEastFromBowFromTheStand(context, ModArrows.FROST_ARROW.item());
 
     context.runAtTick(
         FiringRangeSupport.LANDING_TICK,
@@ -118,10 +106,7 @@ public final class FrostArrowEntityGameTest implements FabricGameTest {
     final SkeletonEntity target = ControlTestSupport.shadedStillSkeletonAt(context, TARGET_STAND);
     context.assertFalse(
         target.canFreeze(), "Vanilla skeletons refuse to freeze, which is why this test exists");
-    MockPlayerSupport.fireEastStraight(
-        context,
-        MockPlayerSupport.playerAt(context, FiringRangeSupport.SHOOTER_STAND),
-        ModArrows.FROST_ARROW.item());
+    FiringRangeSupport.fireEastStraightFromTheStand(context, ModArrows.FROST_ARROW.item());
 
     context.runAtTick(
         FiringRangeSupport.LANDING_TICK,

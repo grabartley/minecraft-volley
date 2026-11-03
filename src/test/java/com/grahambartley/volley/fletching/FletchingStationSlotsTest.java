@@ -3,7 +3,6 @@ package com.grahambartley.volley.fletching;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
-import com.grahambartley.volley.recipe.FletchingRecipe;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -12,8 +11,8 @@ import org.junit.jupiter.params.provider.ValueSource;
 class FletchingStationSlotsTest {
 
   @Test
-  void offersOneInputSlotForEveryIngredientARecipeMayDeclare() {
-    assertEquals(FletchingRecipe.MAX_INPUTS, FletchingStationSlots.INPUT_COUNT);
+  void offersOneInputSlotForEachOfTheNineIngredientsARecipeMayDeclare() {
+    assertEquals(9, FletchingStationSlots.INPUT_COUNT);
   }
 
   @Test
@@ -23,11 +22,9 @@ class FletchingStationSlotsTest {
 
   @Test
   void putsTheResultAfterEveryInputAndThePlayerInventoryAfterTheResult() {
-    assertEquals(FletchingStationSlots.INPUT_COUNT, FletchingStationSlots.RESULT_SLOT);
-    assertEquals(FletchingStationSlots.RESULT_SLOT + 1, FletchingStationSlots.FIRST_PLAYER_SLOT);
-    assertEquals(
-        FletchingStationSlots.FIRST_PLAYER_SLOT + FletchingStationSlots.PLAYER_MAIN_COUNT,
-        FletchingStationSlots.FIRST_HOTBAR_SLOT);
+    assertEquals(9, FletchingStationSlots.RESULT_SLOT);
+    assertEquals(10, FletchingStationSlots.FIRST_PLAYER_SLOT);
+    assertEquals(37, FletchingStationSlots.FIRST_HOTBAR_SLOT);
   }
 
   @ParameterizedTest(name = "slot {0}")

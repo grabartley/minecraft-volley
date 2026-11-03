@@ -17,10 +17,6 @@ public final class ConfigPaths {
     this.modDir = Objects.requireNonNull(worldDir, "worldDir").resolve(MOD_DIR);
   }
 
-  public Path getModDir() {
-    return modDir;
-  }
-
   public Path getServerConfigPath() {
     return modDir.resolve(SERVER_CONFIG_FILE);
   }

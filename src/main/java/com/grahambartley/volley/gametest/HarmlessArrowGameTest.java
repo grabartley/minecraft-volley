@@ -114,10 +114,7 @@ public final class HarmlessArrowGameTest implements FabricGameTest {
       final String promise) {
     final CowEntity target = ControlTestSupport.sturdyStillCowAt(context, TARGET_STAND);
     final float before = target.getHealth();
-    MockPlayerSupport.fireEastStraight(
-        context,
-        MockPlayerSupport.playerAt(context, FiringRangeSupport.SHOOTER_STAND),
-        arrow.item());
+    FiringRangeSupport.fireEastStraightFromTheStand(context, arrow.item());
 
     context.runAtTick(
         FiringRangeSupport.LANDING_TICK,

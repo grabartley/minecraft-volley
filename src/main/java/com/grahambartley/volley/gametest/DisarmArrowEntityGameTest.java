@@ -27,10 +27,7 @@ public final class DisarmArrowEntityGameTest implements FabricGameTest {
   @GameTest(templateName = FiringRangeSupport.TEMPLATE, batchId = BATCH, tickLimit = 60)
   public void anArrowFiredFromABowEmptiesTheTargetsMainHand(TestContext context) {
     final ZombieEntity target = armedZombieAt(context, TARGET_STAND);
-    MockPlayerSupport.fireEastStraight(
-        context,
-        MockPlayerSupport.playerAt(context, FiringRangeSupport.SHOOTER_STAND),
-        ModArrows.DISARM_ARROW.item());
+    FiringRangeSupport.fireEastStraightFromTheStand(context, ModArrows.DISARM_ARROW.item());
 
     context.runAtTick(
         FiringRangeSupport.LANDING_TICK,
@@ -45,10 +42,7 @@ public final class DisarmArrowEntityGameTest implements FabricGameTest {
   @GameTest(templateName = FiringRangeSupport.TEMPLATE, batchId = BATCH, tickLimit = 60)
   public void theItemLandsOnTheGroundWhereItCanBeFetchedBack(TestContext context) {
     armedZombieAt(context, TARGET_STAND);
-    MockPlayerSupport.fireEastStraight(
-        context,
-        MockPlayerSupport.playerAt(context, FiringRangeSupport.SHOOTER_STAND),
-        ModArrows.DISARM_ARROW.item());
+    FiringRangeSupport.fireEastStraightFromTheStand(context, ModArrows.DISARM_ARROW.item());
 
     context.runAtTick(
         FiringRangeSupport.LANDING_TICK,
@@ -61,10 +55,7 @@ public final class DisarmArrowEntityGameTest implements FabricGameTest {
   @GameTest(templateName = FiringRangeSupport.TEMPLATE, batchId = BATCH, tickLimit = 60)
   public void wornArmourIsLeftWhereItIs(TestContext context) {
     final ZombieEntity target = armedZombieAt(context, TARGET_STAND);
-    MockPlayerSupport.fireEastStraight(
-        context,
-        MockPlayerSupport.playerAt(context, FiringRangeSupport.SHOOTER_STAND),
-        ModArrows.DISARM_ARROW.item());
+    FiringRangeSupport.fireEastStraightFromTheStand(context, ModArrows.DISARM_ARROW.item());
 
     context.runAtTick(
         FiringRangeSupport.LANDING_TICK,
@@ -79,10 +70,7 @@ public final class DisarmArrowEntityGameTest implements FabricGameTest {
   @GameTest(templateName = FiringRangeSupport.TEMPLATE, batchId = BATCH, tickLimit = 60)
   public void aTargetHoldingNothingDropsNothing(TestContext context) {
     ControlTestSupport.stillZombieAt(context, TARGET_STAND);
-    MockPlayerSupport.fireEastStraight(
-        context,
-        MockPlayerSupport.playerAt(context, FiringRangeSupport.SHOOTER_STAND),
-        ModArrows.DISARM_ARROW.item());
+    FiringRangeSupport.fireEastStraightFromTheStand(context, ModArrows.DISARM_ARROW.item());
 
     context.runAtTick(
         FiringRangeSupport.LANDING_TICK,

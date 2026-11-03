@@ -25,10 +25,7 @@ public final class AllegianceArrowEntityGameTest implements FabricGameTest {
   @GameTest(templateName = FiringRangeSupport.TEMPLATE, batchId = BATCH, tickLimit = 60)
   public void theHostileItHitsIsTurnedToTheShootersSide(TestContext context) {
     final ZombieEntity target = ControlTestSupport.stillZombieAt(context, TARGET_STAND);
-    MockPlayerSupport.fireEastStraight(
-        context,
-        MockPlayerSupport.playerAt(context, FiringRangeSupport.SHOOTER_STAND),
-        ModArrows.ALLEGIANCE_ARROW.item());
+    FiringRangeSupport.fireEastStraightFromTheStand(context, ModArrows.ALLEGIANCE_ARROW.item());
 
     context.runAtTick(
         FiringRangeSupport.LANDING_TICK,

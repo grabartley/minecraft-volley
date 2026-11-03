@@ -15,10 +15,7 @@ public final class GlowInkArrowEntityGameTest implements FabricGameTest {
   @GameTest(templateName = FiringRangeSupport.TEMPLATE, batchId = BATCH, tickLimit = 60)
   public void anArrowFiredFromABowMarksTheEntityItHits(TestContext context) {
     final CowEntity target = FiringRangeSupport.liveTargetOnPedestalAt(context, TARGET_STAND);
-    MockPlayerSupport.fireEastFromBow(
-        context,
-        MockPlayerSupport.playerAt(context, FiringRangeSupport.SHOOTER_STAND),
-        ModArrows.GLOW_INK_ARROW.item());
+    FiringRangeSupport.fireEastFromBowFromTheStand(context, ModArrows.GLOW_INK_ARROW.item());
 
     context.runAtTick(
         FiringRangeSupport.LANDING_TICK,
@@ -33,10 +30,7 @@ public final class GlowInkArrowEntityGameTest implements FabricGameTest {
     FiringRangeSupport.raiseBackstop(context);
     final CowEntity bystander =
         FiringRangeSupport.liveTargetOnPedestalAt(context, new BlockPos(3, 3, 5));
-    MockPlayerSupport.fireEastFromBow(
-        context,
-        MockPlayerSupport.playerAt(context, FiringRangeSupport.SHOOTER_STAND),
-        ModArrows.GLOW_INK_ARROW.item());
+    FiringRangeSupport.fireEastFromBowFromTheStand(context, ModArrows.GLOW_INK_ARROW.item());
 
     context.runAtTick(
         FiringRangeSupport.LANDING_TICK,
