@@ -4,10 +4,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import com.grahambartley.volley.Volley;
+import java.util.function.Function;
 import net.minecraft.util.Identifier;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 class ArrowTexturesTest {
 
@@ -44,10 +45,16 @@ class ArrowTexturesTest {
     assertEquals(expectedTexturePath, texture.getPath());
   }
 
-  @Test
-  void rejectsANullArrowId() {
-    assertThrows(NullPointerException.class, () -> ArrowTextures.flight(null));
-    assertThrows(NullPointerException.class, () -> ArrowTextures.flightTint(null));
+  @ParameterizedTest
+  @ValueSource(strings = {"flight", "flightTint", "flightGlow"})
+  void rejectsANullArrowId(final String factory) {
+    final Function<Identifier, Identifier> path =
+        switch (factory) {
+          case "flight" -> ArrowTextures::flight;
+          case "flightTint" -> ArrowTextures::flightTint;
+          default -> ArrowTextures::flightGlow;
+        };
+    assertThrows(NullPointerException.class, () -> path.apply(null));
   }
 
   @ParameterizedTest

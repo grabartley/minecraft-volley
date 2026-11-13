@@ -1,11 +1,9 @@
 package com.grahambartley.volley.render;
 
 import com.grahambartley.volley.arrow.FlightSpin;
-import com.grahambartley.volley.arrow.GlowPulse;
 import com.grahambartley.volley.entity.BaseArrowEntity;
 import java.util.Objects;
 import java.util.Optional;
-import net.minecraft.client.render.LightmapTextureManager;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.ProjectileEntityRenderer;
@@ -84,13 +82,15 @@ public class BaseArrowEntityRenderer<E extends BaseArrowEntity>
           tickDelta,
           matrices,
           vertexConsumers,
-          LightmapTextureManager.pack(
-              GlowPulse.blockLight(
-                  entity.age + tickDelta, LightmapTextureManager.getBlockLightCoordinates(light)),
-              LightmapTextureManager.getSkyLightCoordinates(light)));
+          ArrowGlowLight.pulse(entity.age + tickDelta, light));
     } finally {
       drawingGlow = false;
     }
+  }
+
+  @Override
+  protected boolean hasLabel(final E entity) {
+    return !drawingGlow && super.hasLabel(entity);
   }
 
   @Override
