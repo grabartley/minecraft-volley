@@ -2,17 +2,15 @@ package com.grahambartley.volley.render;
 
 import com.grahambartley.volley.ModArrows;
 import com.grahambartley.volley.arrow.ArrowAura;
+import com.grahambartley.volley.arrow.ArrowTextures;
 import com.grahambartley.volley.arrow.FlightSpin;
 import com.grahambartley.volley.arrow.RegisteredArrow;
 import com.grahambartley.volley.entity.BaseArrowEntity;
 import com.grahambartley.volley.entity.TintedArrowEntity;
 import com.grahambartley.volley.item.TintedArrowItem;
-import com.grahambartley.volley.tint.TintChoice;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Optional;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.minecraft.entity.EntityType;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 
 public final class ArrowRendererRegistrar {
@@ -20,10 +18,9 @@ public final class ArrowRendererRegistrar {
 
   public static void registerAll() {
     final Identifier grappleArrowId = ModArrows.GRAPPLE_ARROW.id();
-    final ItemStack grappleStack = new ItemStack(ModArrows.GRAPPLE_ARROW.item());
     EntityRendererRegistry.register(
         ModArrows.GRAPPLE_ARROW.entityType(),
-        context -> new GrappleArrowEntityRenderer(context, grappleStack));
+        context -> new GrappleArrowEntityRenderer(context, ArrowTextures.flight(grappleArrowId)));
 
     ModArrows.registered().stream()
         .filter(arrow -> !arrow.id().equals(grappleArrowId))
@@ -31,33 +28,30 @@ public final class ArrowRendererRegistrar {
   }
 
   private static <E extends BaseArrowEntity> void register(final RegisteredArrow<E> arrow) {
-    if (arrow.item() instanceof TintedArrowItem tinted) {
-      registerTinted(arrow, tinted);
+    final Identifier texture = ArrowTextures.flight(arrow.id());
+    if (arrow.item() instanceof TintedArrowItem) {
+      registerTinted(arrow, texture);
       return;
     }
-    final ItemStack stack = new ItemStack(arrow.item());
     EntityRendererRegistry.register(
         arrow.entityType(),
         context ->
-            new BaseArrowEntityRenderer<E>(
-                context,
-                entity -> stack,
-                ArrowAura.glows(arrow.id()),
-                FlightSpin.spins(arrow.id())));
+            new BaseArrowEntityRenderer<>(
+                context, texture, glowTexture(arrow.id()), FlightSpin.spins(arrow.id())));
+  }
+
+  private static Optional<Identifier> glowTexture(final Identifier arrowId) {
+    return ArrowAura.glows(arrowId)
+        ? Optional.of(ArrowTextures.flightGlow(arrowId))
+        : Optional.empty();
   }
 
   @SuppressWarnings("unchecked")
   private static <E extends TintedArrowEntity> void registerTinted(
-      final RegisteredArrow<?> arrow, final TintedArrowItem item) {
+      final RegisteredArrow<?> arrow, final Identifier texture) {
+    final Identifier tintTexture = ArrowTextures.flightTint(arrow.id());
     EntityRendererRegistry.register(
         (EntityType<E>) arrow.entityType(),
-        context -> {
-          final Map<TintChoice, ItemStack> stacks = new HashMap<>();
-          return new BaseArrowEntityRenderer<E>(
-              context,
-              entity -> stacks.computeIfAbsent(entity.tint(), item::stackOf),
-              ArrowAura.glows(arrow.id()),
-              FlightSpin.spins(arrow.id()));
-        });
+        context -> new TintedArrowEntityRenderer<>(context, texture, tintTexture));
   }
 }

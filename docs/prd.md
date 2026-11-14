@@ -37,7 +37,7 @@ The mod is built for a dedicated server full of strangers first. Every effect th
 | An explosive arrow can be survived | Explosive arrows telegraph with an accelerating audible countdown rather than detonating on impact, so a player who is hit has somewhere to run ([ADR 0003](adr/0003-explosive-arrows-telegraph.md)) |
 | The weapon shows what it will fire | A drawn bow and a charged crossbow both draw the actual arrow nocked, using the arrow's own sprite, so an arrow added later gets it for nothing ([ADR 0021](adr/0021-the-nocked-arrow-is-drawn-over-the-weapon.md)) |
 | No arrow duplicates one a player already has | Vanilla brews a tipped arrow for every effect it sells as a potion. Every arrow here is checked against that set and against the mod's own, and an arrow whose effect a player can already buy is not shipped however good it sounded |
-| Sixty-three arrows a player can tell apart | Every arrow has its own model, drawn the same in hand and in flight, and a sound wherever its effect can land out of sight. Breadth a player cannot navigate is not breadth, so identity is a release requirement rather than a polish pass |
+| Sixty-three arrows a player can tell apart | Every arrow has its own sprite, its own in-flight texture, and a sound wherever its effect can land out of sight. Breadth a player cannot navigate is not breadth, so identity is a release requirement rather than a polish pass |
 | Sixty-three arrows share a handful of systems | Anchors, ticked sessions, fuses, timed structures, reveal pulses and payload components are built once each and reused. An arrow is a recipe, a sprite, and an impact rule, not a new subsystem |
 
 ### Non-Goals
@@ -1259,7 +1259,7 @@ Properties that must hold, whatever the schedule. None of these is a checklist o
 | REL-15 | Every block the release registers has no item form, no recipe, and no drop, and either expires on a timer or answers for its own support. Asserted by test |
 | REL-16 | Every path that carries an item, including a courier payload and a boomerang return, conserves it exactly once, asserted by test on each path rather than on the happy one |
 | REL-17 | Every timed structure, cloud, column, watcher, session, and disguise is proven to end through every interruption in the persistence grid |
-| REL-18 | Every arrow has a sprite of its own, drawn in hand and in flight, asserted by a test over the registry rather than by inspection, and no two arrows share one |
+| REL-18 | Every arrow has a sprite of its own and an in-flight texture of its own, asserted by a test over the registry rather than by inspection, and no two arrows share either |
 | REL-19 | Every arrow whose effect can resolve out of the shooter's sight has an impact sound, and no two unrelated arrows share one |
 | REL-20 | Every arrow's name and description resolve to real prose and are distinct from every other arrow's, and every description says what the arrow does rather than only what it is made of |
 

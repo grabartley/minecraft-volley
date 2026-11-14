@@ -19,6 +19,8 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 class ArrowAuraTest {
   private static final String ITEM_MODELS = "src/main/resources/assets/volley/models/item";
+  private static final String FLIGHT_TEXTURES =
+      "src/main/resources/assets/volley/textures/entity/arrow";
 
   static List<String> arrowPaths() throws IOException {
     try (Stream<Path> files = Files.list(Path.of(ITEM_MODELS))) {
@@ -42,6 +44,14 @@ class ArrowAuraTest {
   @MethodSource("arrowPaths")
   void everyArrowHasItsOwnAccent(final String path) {
     assertNotEquals(ArrowAura.DEFAULT_COLOR, ArrowAura.color(Identifier.of(Volley.MOD_ID, path)));
+  }
+
+  @ParameterizedTest
+  @MethodSource("arrowPaths")
+  void everyGlowingArrowShipsAGlowTexture(final String path) {
+    if (ArrowAura.glows(Identifier.of(Volley.MOD_ID, path))) {
+      assertTrue(Files.exists(Path.of(FLIGHT_TEXTURES, path + "_glow.png")), path);
+    }
   }
 
   @ParameterizedTest

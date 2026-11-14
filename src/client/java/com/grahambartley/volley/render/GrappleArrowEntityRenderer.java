@@ -3,13 +3,13 @@ package com.grahambartley.volley.render;
 import com.grahambartley.volley.entity.GrappleArrowEntity;
 import net.minecraft.client.render.Frustum;
 import net.minecraft.client.render.entity.EntityRendererFactory;
-import net.minecraft.item.ItemStack;
+import net.minecraft.util.Identifier;
 
 public class GrappleArrowEntityRenderer extends BaseArrowEntityRenderer<GrappleArrowEntity> {
 
   public GrappleArrowEntityRenderer(
-      final EntityRendererFactory.Context context, final ItemStack stack) {
-    super(context, arrow -> stack, false, false);
+      final EntityRendererFactory.Context context, final Identifier texture) {
+    super(context, texture);
   }
 
   @Override

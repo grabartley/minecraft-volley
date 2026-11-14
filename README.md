@@ -19,7 +19,7 @@
 
 Volley adds sixty-three craftable arrows, each with its own effect. They cover travel,
 fighting, farming, exploring and helping friends, and a few are just for fun. They all fire from a
-bow, a crossbow or a dispenser, and they all work in multiplayer. Every arrow has its own 3D model
+bow, a crossbow or a dispenser, and they all work in multiplayer. Every arrow has its own sprite
 and coloured fletching, leaves a trail in its colour, and bursts on impact. Energy arrows glow in
 flight, and drills and boomerangs spin.
 

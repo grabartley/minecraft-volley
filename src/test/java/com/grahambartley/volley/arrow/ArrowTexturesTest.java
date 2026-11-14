@@ -3,21 +3,69 @@ package com.grahambartley.volley.arrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import com.grahambartley.volley.Volley;
+import java.util.function.Function;
 import net.minecraft.util.Identifier;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 class ArrowTexturesTest {
 
   @ParameterizedTest
-  @CsvSource({"volley", "minecraft"})
-  void sharesOnePartsTexturePerNamespace(final String namespace) {
-    assertEquals(Identifier.of(namespace, "item/arrow_parts"), ArrowTextures.itemParts(namespace));
+  @CsvSource({
+    "tnt_arrow, textures/entity/arrow/tnt_arrow.png",
+    "rope_arrow, textures/entity/arrow/rope_arrow.png",
+    "arrow, textures/entity/arrow/arrow.png",
+  })
+  void derivesTheTexturePathFromTheArrowPath(final String path, final String expectedTexturePath) {
+    final Identifier texture = ArrowTextures.flight(Identifier.of(Volley.MOD_ID, path));
+
+    assertEquals(expectedTexturePath, texture.getPath());
   }
 
-  @Test
-  void rejectsANullNamespace() {
-    assertThrows(NullPointerException.class, () -> ArrowTextures.itemParts(null));
+  @ParameterizedTest
+  @CsvSource({"volley", "minecraft"})
+  void keepsTheArrowNamespaceForItsTexture(final String namespace) {
+    final Identifier texture = ArrowTextures.flight(Identifier.of(namespace, "tnt_arrow"));
+
+    assertEquals(namespace, texture.getNamespace());
+  }
+
+  @ParameterizedTest
+  @CsvSource({
+    "paint_arrow, textures/entity/arrow/paint_arrow_tint.png",
+    "sapling_arrow, textures/entity/arrow/sapling_arrow_tint.png",
+  })
+  void derivesTheTintTexturePathBesideTheArrowTexture(
+      final String path, final String expectedTexturePath) {
+    final Identifier texture = ArrowTextures.flightTint(Identifier.of(Volley.MOD_ID, path));
+
+    assertEquals(Volley.MOD_ID, texture.getNamespace());
+    assertEquals(expectedTexturePath, texture.getPath());
+  }
+
+  @ParameterizedTest
+  @ValueSource(strings = {"flight", "flightTint", "flightGlow"})
+  void rejectsANullArrowId(final String factory) {
+    final Function<Identifier, Identifier> path =
+        switch (factory) {
+          case "flight" -> ArrowTextures::flight;
+          case "flightTint" -> ArrowTextures::flightTint;
+          default -> ArrowTextures::flightGlow;
+        };
+    assertThrows(NullPointerException.class, () -> path.apply(null));
+  }
+
+  @ParameterizedTest
+  @CsvSource({
+    "shock_arrow, textures/entity/arrow/shock_arrow_glow.png",
+    "torch_arrow, textures/entity/arrow/torch_arrow_glow.png",
+  })
+  void derivesTheGlowTexturePathBesideTheArrowTexture(
+      final String path, final String expectedTexturePath) {
+    assertEquals(
+        expectedTexturePath,
+        ArrowTextures.flightGlow(Identifier.of(Volley.MOD_ID, path)).getPath());
   }
 }
